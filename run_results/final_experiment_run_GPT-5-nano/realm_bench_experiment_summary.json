@@ -1,0 +1,5333 @@
+{
+  "experiments": [
+    "baseline",
+    "rag"
+  ],
+  "tasks": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10"
+  ],
+  "seeds": [
+    42
+  ],
+  "total_runs": 20,
+  "successful_runs": 20,
+  "failed_runs": 0,
+  "results": [
+    {
+      "run_id": "baseline_P1_42_1756549989",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "visit_all_locations",
+          "description": "Visit all required campus locations"
+        },
+        {
+          "id": "minimize_travel_time",
+          "description": "Minimize total travel time"
+        },
+        {
+          "id": "respect_time_windows",
+          "description": "Respect all time window constraints"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "time_windows",
+          "description": "Each location has specific time windows"
+        },
+        {
+          "id": "travel_time",
+          "description": "Travel time between locations"
+        },
+        {
+          "id": "tour_duration",
+          "description": "Total tour must complete within time limit"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "plan_data_gather",
+          "description": "Compile campuses locations, start/end point, and time window constraints into a structured dataset for planning.",
+          "capability": "data_analyst",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "compute_travel_times",
+          "description": "Compute travel times between all locations (library, cafeteria, gym, student_center) and start/end (entrance) to build the routing cost matrix.",
+          "capability": "logistics",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "generate_candidate_sequences",
+          "description": "Generate and evaluate potential visit sequences using current data to seed routing optimization, considering start and end at entrance.",
+          "capability": "optimizer",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "plan_data_gather"
+          ]
+        },
+        {
+          "task_id": "build_timeline",
+          "description": "Build tentative schedules for each candidate sequence satisfying time windows using the travel time matrix.",
+          "capability": "scheduler",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "compute_travel_times",
+            "generate_candidate_sequences"
+          ]
+        },
+        {
+          "task_id": "feasibility_validator",
+          "description": "Validate that proposed tours satisfy all spatial constraints and time windows; flag violations and adjust plan as needed.",
+          "capability": "validator",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "build_timeline"
+          ]
+        },
+        {
+          "task_id": "integrate_final_plan",
+          "description": "Compile final tour plan (start at entrance, visit all locations within windows, return to entrance) and prepare execution briefing for deployment.",
+          "capability": "logistics",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "feasibility_validator"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.46875,
+            "timestamp": 1756550054.459424,
+            "agent_id": "logistics_agent_1756549999185",
+            "task_id": "compute_travel_times"
+          },
+          {
+            "memory_mb": 0.46875,
+            "timestamp": 1756550054.459429,
+            "agent_id": "data_analyst_agent_1756549999189",
+            "task_id": "plan_data_gather"
+          },
+          {
+            "memory_mb": 0.140625,
+            "timestamp": 1756550054.459432,
+            "agent_id": "optimizer_agent_1756550012640",
+            "task_id": "generate_candidate_sequences"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550054.459433,
+            "agent_id": "scheduler_agent_1756550022316",
+            "task_id": "build_timeline"
+          },
+          {
+            "memory_mb": 0.03125,
+            "timestamp": 1756550054.459435,
+            "agent_id": "validator_agent_1756550036425",
+            "task_id": "feasibility_validator"
+          },
+          {
+            "memory_mb": 0.078125,
+            "timestamp": 1756550054.4594371,
+            "agent_id": "logistics_agent_1756549999185",
+            "task_id": "integrate_final_plan"
+          }
+        ],
+        "execution_times": [
+          10.684405088424683,
+          13.444751977920532,
+          9.67200493812561,
+          14.105822086334229,
+          9.012526035308838,
+          9.013113737106323,
+          65.06721997261047
+        ],
+        "token_usage": {
+          "input": 8557,
+          "output": 7131,
+          "total": 15688
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2417,
+            "output": 425,
+            "total": 2842
+          },
+          "execution": {
+            "input": 8557,
+            "output": 7131,
+            "total": 15688
+          },
+          "combined": {
+            "input": 10974,
+            "output": 7556,
+            "total": 18530
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 10974,
+        "output": 7556,
+        "total": 18530
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 65.06721997261047,
+      "steps_taken": 5,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 9.785902976989746,
+      "planning_tokens": {
+        "input": 2417,
+        "output": 425,
+        "total": 2842
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2417,
+          "output": 425,
+          "total": 2842
+        },
+        "execution": {
+          "input": 8557,
+          "output": 7131,
+          "total": 15688
+        },
+        "combined": {
+          "input": 10974,
+          "output": 7556,
+          "total": 18530
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P1",
+      "seed": 42,
+      "total_execution_time": 65.10559797286987
+    },
+    {
+      "run_id": "baseline_P2_42_1756550054",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "serve_all_groups",
+          "description": "Serve all visitor groups"
+        },
+        {
+          "id": "minimize_wait_time",
+          "description": "Minimize group wait times"
+        },
+        {
+          "id": "balance_guide_workload",
+          "description": "Balance workload across guides"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "guide_availability",
+          "description": "Guide availability schedules"
+        },
+        {
+          "id": "group_size",
+          "description": "Maximum group size per guide"
+        },
+        {
+          "id": "tour_duration",
+          "description": "Each tour must complete within time limit"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "subtask1",
+          "description": "Validate and normalize input data (guide availability, group sizes, preferred times, and time limit); produce a cleaned dataset and constraint flags for planning.",
+          "capability": "validator",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "subtask2",
+          "description": "Generate initial feasible group-to-guide assignment options considering guide availability, capacity limits, and each group's preferred time; retain multiple candidate allocations for optimization.",
+          "capability": "resource_manager",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "subtask1"
+          ]
+        },
+        {
+          "task_id": "subtask3",
+          "description": "Compute optimized schedule to minimize group wait times and balance workload across guides using the feasible assignments; output a final recommended allocation with start times for each group.",
+          "capability": "optimizer",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "subtask1",
+            "subtask2"
+          ]
+        },
+        {
+          "task_id": "subtask4",
+          "description": "Construct a concrete execution plan with per-guide timelines and handoffs, ensuring each tour completes within the time limit and capacity constraints.",
+          "capability": "scheduler",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "subtask3"
+          ]
+        },
+        {
+          "task_id": "subtask5",
+          "description": "Validate the final execution plan against all constraints, and prepare a ready-to-deploy plan with contingency checks.",
+          "capability": "validator",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "subtask4"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550097.624602,
+            "agent_id": "validator_agent_1756550062137",
+            "task_id": "subtask1"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550097.624606,
+            "agent_id": "resource_manager_agent_1756550066924",
+            "task_id": "subtask2"
+          },
+          {
+            "memory_mb": 0.0625,
+            "timestamp": 1756550097.624608,
+            "agent_id": "optimizer_agent_1756550071746",
+            "task_id": "subtask3"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550097.62461,
+            "agent_id": "scheduler_agent_1756550085172",
+            "task_id": "subtask4"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550097.6246111,
+            "agent_id": "validator_agent_1756550062137",
+            "task_id": "subtask5"
+          }
+        ],
+        "execution_times": [
+          4.783731937408447,
+          4.817539215087891,
+          13.421081304550171,
+          5.856993675231934,
+          6.587833881378174,
+          43.128515005111694
+        ],
+        "token_usage": {
+          "input": 4232,
+          "output": 4542,
+          "total": 8774
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2200,
+            "output": 419,
+            "total": 2619
+          },
+          "execution": {
+            "input": 4232,
+            "output": 4542,
+            "total": 8774
+          },
+          "combined": {
+            "input": 6432,
+            "output": 4961,
+            "total": 11393
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 5,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 5,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 6432,
+        "output": 4961,
+        "total": 11393
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 43.128515005111694,
+      "steps_taken": 5,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 7.637526988983154,
+      "planning_tokens": {
+        "input": 2200,
+        "output": 419,
+        "total": 2619
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2200,
+          "output": 419,
+          "total": 2619
+        },
+        "execution": {
+          "input": 4232,
+          "output": 4542,
+          "total": 8774
+        },
+        "combined": {
+          "input": 6432,
+          "output": 4961,
+          "total": 11393
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P2",
+      "seed": 42,
+      "total_execution_time": 43.15836691856384
+    },
+    {
+      "run_id": "baseline_P3_42_1756550097",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "serve_all_passengers",
+          "description": "Serve all passenger requests"
+        },
+        {
+          "id": "minimize_total_distance",
+          "description": "Minimize total vehicle travel distance"
+        },
+        {
+          "id": "meet_deadlines",
+          "description": "Meet all passenger deadlines"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "vehicle_capacity",
+          "description": "Vehicle passenger capacity"
+        },
+        {
+          "id": "passenger_deadlines",
+          "description": "Passenger arrival deadlines"
+        },
+        {
+          "id": "vehicle_fuel",
+          "description": "Vehicle fuel constraints"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Feasibility check across all constraints: validate vehicle capacities, fuel, passenger arrival deadlines, and overall resource feasibility for the given fleet and requests.",
+          "capability": "validator",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Generate candidate ride assignments and routing scenarios using optimization to minimize total travel distance given current vehicles and passenger requests.",
+          "capability": "optimizer",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S3",
+          "description": "Evaluate candidate scenarios to ensure all passenger deadlines are achievable under constraints; filter feasible scenarios for further planning.",
+          "capability": "validator",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S2"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Compute passenger-vehicle assignment ensuring capacity and minimal projected distance; produce a preferred allocation across vehicles.",
+          "capability": "resource_manager",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S2",
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Create a temporal scheduling plan for each vehicle (pickup/dropoff sequence with timing) that respects deadlines and fuel constraints.",
+          "capability": "scheduler",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S3",
+            "S4"
+          ]
+        },
+        {
+          "task_id": "S6",
+          "description": "Integrate the allocations and schedules into a final executable plan; output recommended routes, timings, and passenger mappings.",
+          "capability": "general",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "S4",
+            "S5",
+            "S3"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756550153.37726,
+            "agent_id": "validator_agent_1756550105461",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.109375,
+            "timestamp": 1756550153.377263,
+            "agent_id": "optimizer_agent_1756550105464",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550153.377266,
+            "agent_id": "validator_agent_1756550105461",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550153.377268,
+            "agent_id": "resource_manager_agent_1756550122248",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550153.37727,
+            "agent_id": "scheduler_agent_1756550128391",
+            "task_id": "S5"
+          },
+          {
+            "memory_mb": 0.09375,
+            "timestamp": 1756550153.377271,
+            "agent_id": "general_agent_1756550137697",
+            "task_id": "S6"
+          }
+        ],
+        "execution_times": [
+          6.974672317504883,
+          10.411895036697388,
+          6.364173173904419,
+          6.13922905921936,
+          9.30214238166809,
+          15.676113843917847,
+          55.72513198852539
+        ],
+        "token_usage": {
+          "input": 6905,
+          "output": 6216,
+          "total": 13121
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2289,
+            "output": 154,
+            "total": 2443
+          },
+          "execution": {
+            "input": 6905,
+            "output": 6216,
+            "total": 13121
+          },
+          "combined": {
+            "input": 9194,
+            "output": 6370,
+            "total": 15564
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 9194,
+        "output": 6370,
+        "total": 15564
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 55.72513198852539,
+      "steps_taken": 5,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 7.805929183959961,
+      "planning_tokens": {
+        "input": 2289,
+        "output": 154,
+        "total": 2443
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2289,
+          "output": 154,
+          "total": 2443
+        },
+        "execution": {
+          "input": 6905,
+          "output": 6216,
+          "total": 13121
+        },
+        "combined": {
+          "input": 9194,
+          "output": 6370,
+          "total": 15564
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P3",
+      "seed": 42,
+      "total_execution_time": 55.752431869506836
+    },
+    {
+      "run_id": "baseline_P4_42_1756550153",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "serve_all_passengers",
+          "description": "Serve all passenger requests"
+        },
+        {
+          "id": "minimize_delays",
+          "description": "Minimize delays due to disruptions"
+        },
+        {
+          "id": "adapt_to_changes",
+          "description": "Successfully adapt to route changes"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "vehicle_capacity",
+          "description": "Vehicle passenger capacity"
+        },
+        {
+          "id": "passenger_deadlines",
+          "description": "Passenger arrival deadlines"
+        },
+        {
+          "id": "route_availability",
+          "description": "Route availability constraints"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "validate_inputs",
+          "description": "Validate vehicles, passenger data, deadlines, capacities, and route constraints against the problem specification to ensure feasibility before planning.",
+          "capability": "validator",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "initial_allocation_and_routing",
+          "description": "Compute initial vehicle-to-passenger assignment and route feasibility for passenger1 considering vehicle capacity and passenger deadline.",
+          "capability": "logistics",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "validate_inputs"
+          ]
+        },
+        {
+          "task_id": "generate_initial_schedule",
+          "description": "Create a time-based schedule with pickup/dropoff times using baseline travel times and capacity constraints.",
+          "capability": "scheduler",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "initial_allocation_and_routing"
+          ]
+        },
+        {
+          "task_id": "setup_dynamic_monitoring_and_feasibility_checks",
+          "description": "Define dynamic route availability monitoring, delay detection, and feasibility checks with triggers for disruptions.",
+          "capability": "data_analyst",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "initial_allocation_and_routing"
+          ]
+        },
+        {
+          "task_id": "disruption_response_plans",
+          "description": "Generate contingency routing and reallocation plans to adapt to potential disruptions and dynamic changes in route feasibility.",
+          "capability": "optimizer",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "setup_dynamic_monitoring_and_feasibility_checks"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550202.716651,
+            "agent_id": "validator_agent_1756550162056",
+            "task_id": "validate_inputs"
+          },
+          {
+            "memory_mb": 0.109375,
+            "timestamp": 1756550202.716712,
+            "agent_id": "logistics_agent_1756550166015",
+            "task_id": "initial_allocation_and_routing"
+          },
+          {
+            "memory_mb": 0.03125,
+            "timestamp": 1756550202.716716,
+            "agent_id": "scheduler_agent_1756550179918",
+            "task_id": "generate_initial_schedule"
+          },
+          {
+            "memory_mb": 0.0625,
+            "timestamp": 1756550202.71672,
+            "agent_id": "data_analyst_agent_1756550179921",
+            "task_id": "setup_dynamic_monitoring_and_feasibility_checks"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756550202.7167208,
+            "agent_id": "optimizer_agent_1756550189291",
+            "task_id": "disruption_response_plans"
+          }
+        ],
+        "execution_times": [
+          3.954993963241577,
+          13.899398803710938,
+          3.970750093460083,
+          9.364405155181885,
+          13.42128586769104,
+          49.31197214126587
+        ],
+        "token_usage": {
+          "input": 7613,
+          "output": 3476,
+          "total": 11089
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2272,
+            "output": 393,
+            "total": 2665
+          },
+          "execution": {
+            "input": 7613,
+            "output": 3476,
+            "total": 11089
+          },
+          "combined": {
+            "input": 9885,
+            "output": 3869,
+            "total": 13754
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 5,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 5,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 9885,
+        "output": 3869,
+        "total": 13754
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 49.31197214126587,
+      "steps_taken": 4,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 8.648689985275269,
+      "planning_tokens": {
+        "input": 2272,
+        "output": 393,
+        "total": 2665
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2272,
+          "output": 393,
+          "total": 2665
+        },
+        "execution": {
+          "input": 7613,
+          "output": 3476,
+          "total": 11089
+        },
+        "combined": {
+          "input": 9885,
+          "output": 3869,
+          "total": 13754
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P4",
+      "seed": 42,
+      "total_execution_time": 49.3394730091095
+    },
+    {
+      "run_id": "baseline_P5_42_1756550202",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "coordinate_arrivals",
+          "description": "Coordinate all guest arrivals"
+        },
+        {
+          "id": "complete_errands",
+          "description": "Complete all required errands"
+        },
+        {
+          "id": "optimize_vehicle_usage",
+          "description": "Optimize shared vehicle usage"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "wedding_deadline",
+          "description": "Wedding ceremony deadline"
+        },
+        {
+          "id": "vehicle_capacity",
+          "description": "Vehicle passenger capacity"
+        },
+        {
+          "id": "errand_dependencies",
+          "description": "Errand completion dependencies"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "t1_schedule",
+          "description": "Develop a high-level schedule aligning guest arrivals, errands windows, ceremony deadline, and vehicle usage slots. Output: time windows per task, contingency buffers, and milestone checkpoints to enable parallel task execution.",
+          "capability": "scheduler",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "t2_guest_arrivals_transport",
+          "description": "Allocate and book transportation for arriving guests (airport 14:00, hotel 15:00) translating arrivals into church/reception transport needs. Ensure vehicle capacity and routing respect the ceremony deadline. Produce per-guest transport plan and vehicle load plans.",
+          "capability": "logistics",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "t1_schedule"
+          ]
+        },
+        {
+          "task_id": "t3_errand_planning",
+          "description": "Plan all errands (flowers, cake, decorations, photographer, music): assign errands to vehicles, determine pickup/drop-off order, create routes and time slots that fit within the ceremony timeline. Produce a master errand route and vehicle assignment plan.",
+          "capability": "logistics",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "t1_schedule"
+          ]
+        },
+        {
+          "task_id": "t4_vehicle_capacity_feasibility",
+          "description": "Evaluate and optimize vehicle usage against passenger and errand requirements to ensure no vehicle overload and efficient sharing. Provide alternative configurations if needed (e.g., shuttle sequences, shared rides).",
+          "capability": "optimizer",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "t1_schedule"
+          ]
+        },
+        {
+          "task_id": "t5_plan_validation",
+          "description": "Validate the complete plan against all constraints (ceremony deadline, vehicle passenger capacity, errand dependencies). Flag infeasibilities and produce a final, executable plan ready for execution.",
+          "capability": "validator",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "t2_guest_arrivals_transport",
+            "t3_errand_planning",
+            "t4_vehicle_capacity_feasibility"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550254.2399318,
+            "agent_id": "scheduler_agent_1756550212769",
+            "task_id": "t1_schedule"
+          },
+          {
+            "memory_mb": 0.40625,
+            "timestamp": 1756550254.239936,
+            "agent_id": "logistics_agent_1756550222638",
+            "task_id": "t2_guest_arrivals_transport"
+          },
+          {
+            "memory_mb": 0.421875,
+            "timestamp": 1756550254.2399402,
+            "agent_id": "logistics_agent_1756550222643",
+            "task_id": "t3_errand_planning"
+          },
+          {
+            "memory_mb": 0.375,
+            "timestamp": 1756550254.239944,
+            "agent_id": "optimizer_agent_1756550222645",
+            "task_id": "t4_vehicle_capacity_feasibility"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550254.239946,
+            "agent_id": "validator_agent_1756550247469",
+            "task_id": "t5_plan_validation"
+          }
+        ],
+        "execution_times": [
+          9.863288164138794,
+          14.397411108016968,
+          24.82207489013672,
+          11.216152906417847,
+          6.766610383987427,
+          51.495744705200195
+        ],
+        "token_usage": {
+          "input": 11652,
+          "output": 5122,
+          "total": 16774
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2576,
+            "output": 468,
+            "total": 3044
+          },
+          "execution": {
+            "input": 11652,
+            "output": 5122,
+            "total": 16774
+          },
+          "combined": {
+            "input": 14228,
+            "output": 5590,
+            "total": 19818
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 5,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 5,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 14228,
+        "output": 5590,
+        "total": 19818
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 51.495744705200195,
+      "steps_taken": 3,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 10.022595882415771,
+      "planning_tokens": {
+        "input": 2576,
+        "output": 468,
+        "total": 3044
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2576,
+          "output": 468,
+          "total": 3044
+        },
+        "execution": {
+          "input": 11652,
+          "output": 5122,
+          "total": 16774
+        },
+        "combined": {
+          "input": 14228,
+          "output": 5590,
+          "total": 19818
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P5",
+      "seed": 42,
+      "total_execution_time": 51.52326822280884
+    },
+    {
+      "run_id": "baseline_P6_42_1756550254",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "coordinate_travel",
+          "description": "Coordinate all family travel"
+        },
+        {
+          "id": "prepare_meal",
+          "description": "Complete meal preparation on time"
+        },
+        {
+          "id": "minimize_conflicts",
+          "description": "Minimize kitchen and resource conflicts"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "dinner_deadline",
+          "description": "Dinner serving deadline"
+        },
+        {
+          "id": "kitchen_capacity",
+          "description": "Kitchen workspace capacity"
+        },
+        {
+          "id": "cooking_dependencies",
+          "description": "Cooking task dependencies"
+        },
+        {
+          "id": "airport_pickups",
+          "description": "Airport pickup scheduling"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Define the dinner deadline, total time window for meal preparation, and airport pickup windows. Establish initial high-level schedule constraints and check for obvious feasibility (dinner by deadline, utensils, kitchen capacity).",
+          "capability": "general",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Assign cooking tasks (turkey, stuffing, gravy, potatoes, vegetables, dessert) to mom and dad based on skills, and determine plausible sequencing and oven/stove load to respect kitchen capacity and dependencies.",
+          "capability": "general",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S3",
+          "description": "Plan airport pickup for dad: schedule car2 run from airport to home within arrival window, coordinate with mom's status and travel times, ensuring car capacity is not exceeded.",
+          "capability": "general",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Create kitchen workflow with detailed sequencing, parallelizable tasks, and resource constraints to minimize conflicts (e.g., oven, burners, prep space) while respecting task dependencies and assigned personnel from S2.",
+          "capability": "general",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S2",
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Validate the full plan for feasibility, consistency with constraints, and generate a final, executable schedule with assigned resources and contingency notes.",
+          "capability": "general",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S3",
+            "S4"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550305.4701571,
+            "agent_id": "general_agent_1756550263421",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.09375,
+            "timestamp": 1756550305.470159,
+            "agent_id": "general_agent_1756550263421",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.09375,
+            "timestamp": 1756550305.4701598,
+            "agent_id": "general_agent_1756550276617",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550305.470162,
+            "agent_id": "general_agent_1756550263421",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": -19.953125,
+            "timestamp": 1756550305.4701629,
+            "agent_id": "general_agent_1756550263421",
+            "task_id": "S5"
+          }
+        ],
+        "execution_times": [
+          13.189330101013184,
+          7.220064878463745,
+          6.518958806991577,
+          11.722531080245972,
+          9.901511907577515,
+          51.20240306854248
+        ],
+        "token_usage": {
+          "input": 10792,
+          "output": 3431,
+          "total": 14223
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2510,
+            "output": 497,
+            "total": 3007
+          },
+          "execution": {
+            "input": 10792,
+            "output": 3431,
+            "total": 14223
+          },
+          "combined": {
+            "input": 13302,
+            "output": 3928,
+            "total": 17230
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 5,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 5,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 13302,
+        "output": 3928,
+        "total": 17230
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 51.20240306854248,
+      "steps_taken": 4,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 9.150945663452148,
+      "planning_tokens": {
+        "input": 2510,
+        "output": 497,
+        "total": 3007
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2510,
+          "output": 497,
+          "total": 3007
+        },
+        "execution": {
+          "input": 10792,
+          "output": 3431,
+          "total": 14223
+        },
+        "combined": {
+          "input": 13302,
+          "output": 3928,
+          "total": 17230
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P6",
+      "seed": 42,
+      "total_execution_time": 51.22874474525452
+    },
+    {
+      "run_id": "baseline_P7_42_1756550305",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "maximize_aid_delivery",
+          "description": "Maximize aid delivery to affected areas"
+        },
+        {
+          "id": "minimize_response_time",
+          "description": "Minimize response time to emergencies"
+        },
+        {
+          "id": "optimize_resource_allocation",
+          "description": "Optimize resource allocation"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "resource_availability",
+          "description": "Available relief resources"
+        },
+        {
+          "id": "personnel_capacity",
+          "description": "Personnel availability"
+        },
+        {
+          "id": "emergency_deadlines",
+          "description": "Emergency response deadlines"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "constraint_validation",
+          "description": "Validate available resources, region needs, and emergency deadlines against constraints to establish feasibility.",
+          "capability": "validator",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "resource_allocation",
+          "description": "Assign personnel (teams) and vehicles to regions based on identified needs, skills, and availability.",
+          "capability": "resource_manager",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "constraint_validation"
+          ]
+        },
+        {
+          "task_id": "transport_planning",
+          "description": "Develop concrete movement plans (routes and vehicle allocations) for each region using helicopters and trucks, considering capacity and speed.",
+          "capability": "logistics",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "resource_allocation"
+          ]
+        },
+        {
+          "task_id": "scheduling_timeline",
+          "description": "Create time-bound delivery and response schedules aligned with deadlines and transit times.",
+          "capability": "scheduler",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "resource_allocation"
+          ]
+        },
+        {
+          "task_id": "resilience_and_scenarios",
+          "description": "Evaluate uncertainty scenarios and optimize allocations for robustness across evolving needs.",
+          "capability": "optimizer",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "scheduling_timeline",
+            "transport_planning"
+          ]
+        },
+        {
+          "task_id": "integration_and_reporting",
+          "description": "Validate end-to-end feasibility and generate an operational briefing for stakeholders.",
+          "capability": "validator",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "resilience_and_scenarios"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550348.143382,
+            "agent_id": "validator_agent_1756550313135",
+            "task_id": "constraint_validation"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550348.143384,
+            "agent_id": "resource_manager_agent_1756550318664",
+            "task_id": "resource_allocation"
+          },
+          {
+            "memory_mb": 0.09375,
+            "timestamp": 1756550348.1433868,
+            "agent_id": "logistics_agent_1756550323801",
+            "task_id": "transport_planning"
+          },
+          {
+            "memory_mb": 0.09375,
+            "timestamp": 1756550348.143389,
+            "agent_id": "scheduler_agent_1756550323804",
+            "task_id": "scheduling_timeline"
+          },
+          {
+            "memory_mb": 0.0625,
+            "timestamp": 1756550348.143392,
+            "agent_id": "optimizer_agent_1756550331670",
+            "task_id": "resilience_and_scenarios"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550348.143394,
+            "agent_id": "validator_agent_1756550313135",
+            "task_id": "integration_and_reporting"
+          }
+        ],
+        "execution_times": [
+          5.524394989013672,
+          5.13140606880188,
+          7.865350961685181,
+          5.723467111587524,
+          11.759029865264893,
+          4.706453084945679,
+          42.646864891052246
+        ],
+        "token_usage": {
+          "input": 6817,
+          "output": 4527,
+          "total": 11344
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2500,
+            "output": 345,
+            "total": 2845
+          },
+          "execution": {
+            "input": 6817,
+            "output": 4527,
+            "total": 11344
+          },
+          "combined": {
+            "input": 9317,
+            "output": 4872,
+            "total": 14189
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 9317,
+        "output": 4872,
+        "total": 14189
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 42.646864891052246,
+      "steps_taken": 5,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 7.63650369644165,
+      "planning_tokens": {
+        "input": 2500,
+        "output": 345,
+        "total": 2845
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2500,
+          "output": 345,
+          "total": 2845
+        },
+        "execution": {
+          "input": 6817,
+          "output": 4527,
+          "total": 11344
+        },
+        "combined": {
+          "input": 9317,
+          "output": 4872,
+          "total": 14189
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P7",
+      "seed": 42,
+      "total_execution_time": 42.6730477809906
+    },
+    {
+      "run_id": "baseline_P8_42_1756550348",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "coordinate_arrivals",
+          "description": "Coordinate all guest arrivals"
+        },
+        {
+          "id": "complete_errands",
+          "description": "Complete all required errands"
+        },
+        {
+          "id": "adapt_to_disruptions",
+          "description": "Successfully adapt to disruptions"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "wedding_deadline",
+          "description": "Wedding ceremony deadline"
+        },
+        {
+          "id": "vehicle_capacity",
+          "description": "Vehicle passenger capacity"
+        },
+        {
+          "id": "route_availability",
+          "description": "Route availability constraints"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "t1_feasibility",
+          "description": "Constraint feasibility verification for wedding deadline, vehicle capacities, and route availability using current resources and errands.",
+          "capability": "validator",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "t2_fleet_assignment",
+          "description": "Initial fleet assignment: allocate vehicles (van, car1) to guest transport and errands respecting capacities and starting locations.",
+          "capability": "resource_manager",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "t1_feasibility"
+          ]
+        },
+        {
+          "task_id": "t3_schedule_draft",
+          "description": "Draft a synchronized timeline for guest arrivals and errands, incorporating vehicle availability, locations, and the ceremony deadline.",
+          "capability": "scheduler",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "t1_feasibility",
+            "t2_fleet_assignment"
+          ]
+        },
+        {
+          "task_id": "t4_route_planning",
+          "description": "Plan feasible routes for each task (guest pickups, errands, and transitions) considering current road closures and travel times.",
+          "capability": "logistics",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "t2_fleet_assignment"
+          ]
+        },
+        {
+          "task_id": "t5_replanning_protocol",
+          "description": "Define real-time replanning protocol to adapt schedules and routes in response to disruptions (closures, delays, or capacity changes).",
+          "capability": "optimizer",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "t3_schedule_draft",
+            "t4_route_planning"
+          ]
+        },
+        {
+          "task_id": "t6_integration_communication",
+          "description": "Generate integrative plan communication and task handoffs to guests and staff, including contingency options and alerts.",
+          "capability": "general",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "t3_schedule_draft",
+            "t4_route_planning",
+            "t5_replanning_protocol"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550402.521148,
+            "agent_id": "validator_agent_1756550356912",
+            "task_id": "t1_feasibility"
+          },
+          {
+            "memory_mb": 0.03125,
+            "timestamp": 1756550402.5211499,
+            "agent_id": "resource_manager_agent_1756550363853",
+            "task_id": "t2_fleet_assignment"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756550402.521151,
+            "agent_id": "scheduler_agent_1756550370980",
+            "task_id": "t3_schedule_draft"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756550402.521152,
+            "agent_id": "logistics_agent_1756550370983",
+            "task_id": "t4_route_planning"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550402.521153,
+            "agent_id": "optimizer_agent_1756550387663",
+            "task_id": "t5_replanning_protocol"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550402.5211542,
+            "agent_id": "general_agent_1756550395470",
+            "task_id": "t6_integration_communication"
+          }
+        ],
+        "execution_times": [
+          6.935484886169434,
+          7.123740911483765,
+          12.386373043060303,
+          16.675612211227417,
+          7.804433822631836,
+          7.045403003692627,
+          54.350101947784424
+        ],
+        "token_usage": {
+          "input": 9010,
+          "output": 6494,
+          "total": 15504
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2282,
+            "output": 464,
+            "total": 2746
+          },
+          "execution": {
+            "input": 9010,
+            "output": 6494,
+            "total": 15504
+          },
+          "combined": {
+            "input": 11292,
+            "output": 6958,
+            "total": 18250
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 11292,
+        "output": 6958,
+        "total": 18250
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 54.350101947784424,
+      "steps_taken": 5,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 8.737960815429688,
+      "planning_tokens": {
+        "input": 2282,
+        "output": 464,
+        "total": 2746
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2282,
+          "output": 464,
+          "total": 2746
+        },
+        "execution": {
+          "input": 9010,
+          "output": 6494,
+          "total": 15504
+        },
+        "combined": {
+          "input": 11292,
+          "output": 6958,
+          "total": 18250
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P8",
+      "seed": 42,
+      "total_execution_time": 54.37734603881836
+    },
+    {
+      "run_id": "baseline_P9_42_1756550402",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "coordinate_travel",
+          "description": "Coordinate all family travel"
+        },
+        {
+          "id": "prepare_meal",
+          "description": "Complete meal preparation on time"
+        },
+        {
+          "id": "adapt_to_delays",
+          "description": "Successfully adapt to flight delays"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "dinner_deadline",
+          "description": "Dinner serving deadline"
+        },
+        {
+          "id": "kitchen_capacity",
+          "description": "Kitchen workspace capacity"
+        },
+        {
+          "id": "flight_schedules",
+          "description": "Flight arrival schedules"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "flight_and_resource_assessment",
+          "description": "Assess flight arrival windows for mom and dad, identify dinner deadline, kitchen workspace capacity, and available resources (vehicles, cooking_tasks). Produce initial feasible time windows and constraints to guide scheduling.",
+          "capability": "data_analyst",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "assign_family_roles_and_tasks",
+          "description": "Assign cooking responsibilities to mom and dad based on their skills (mom: turkey; dad: potatoes) and allocate remaining tasks (stuffing, gravy, potatoes) to capable family members or placeholders, ensuring alignment with flight schedules.",
+          "capability": "resource_manager",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "flight_and_resource_assessment"
+          ]
+        },
+        {
+          "task_id": "meal_preparation_schedule",
+          "description": "Create a detailed, parallelizable cooking timeline for turkey, stuffing, gravy, and potatoes aligned with kitchen capacity, overlap constraints, and recovery windows for flight delays. Include start/finish times and required utensils/workspaces.",
+          "capability": "scheduler",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "assign_family_roles_and_tasks"
+          ]
+        },
+        {
+          "task_id": "transport_and_logistics_plan",
+          "description": "Plan vehicle movements for airport pickups/drop-offs and kitchen supply transfers, respecting car capacities and locations, ensuring arrival/departure windows align with flight schedules.",
+          "capability": "logistics",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "flight_and_resource_assessment"
+          ]
+        },
+        {
+          "task_id": "dinner_serving_and_recovery_plan",
+          "description": "Integrate cooking schedule with dinner serving deadline, implement recovery windows for potential flight delays, and validate feasibility against all constraints.",
+          "capability": "validator",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "meal_preparation_schedule",
+            "transport_and_logistics_plan"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.09375,
+            "timestamp": 1756550448.08926,
+            "agent_id": "data_analyst_agent_1756550410516",
+            "task_id": "flight_and_resource_assessment"
+          },
+          {
+            "memory_mb": 0.0625,
+            "timestamp": 1756550448.0892632,
+            "agent_id": "resource_manager_agent_1756550424189",
+            "task_id": "assign_family_roles_and_tasks"
+          },
+          {
+            "memory_mb": 0.5,
+            "timestamp": 1756550448.0892658,
+            "agent_id": "logistics_agent_1756550424191",
+            "task_id": "transport_and_logistics_plan"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550448.089268,
+            "agent_id": "scheduler_agent_1756550432646",
+            "task_id": "meal_preparation_schedule"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550448.08927,
+            "agent_id": "validator_agent_1756550440407",
+            "task_id": "dinner_serving_and_recovery_plan"
+          }
+        ],
+        "execution_times": [
+          13.66734790802002,
+          3.625643014907837,
+          8.450169086456299,
+          7.756593942642212,
+          7.678447961807251,
+          45.541849851608276
+        ],
+        "token_usage": {
+          "input": 6422,
+          "output": 4991,
+          "total": 11413
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2231,
+            "output": 451,
+            "total": 2682
+          },
+          "execution": {
+            "input": 6422,
+            "output": 4991,
+            "total": 11413
+          },
+          "combined": {
+            "input": 8653,
+            "output": 5442,
+            "total": 14095
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 5,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 5,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 8653,
+        "output": 5442,
+        "total": 14095
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 45.541849851608276,
+      "steps_taken": 4,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 7.965785026550293,
+      "planning_tokens": {
+        "input": 2231,
+        "output": 451,
+        "total": 2682
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2231,
+          "output": 451,
+          "total": 2682
+        },
+        "execution": {
+          "input": 6422,
+          "output": 4991,
+          "total": 11413
+        },
+        "combined": {
+          "input": 8653,
+          "output": 5442,
+          "total": 14095
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P9",
+      "seed": 42,
+      "total_execution_time": 45.56797432899475
+    },
+    {
+      "run_id": "baseline_P10_42_1756550448",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "minimize_total_cost",
+          "description": "Minimize total project cost"
+        },
+        {
+          "id": "meet_delivery_deadlines",
+          "description": "Meet all delivery deadlines"
+        },
+        {
+          "id": "optimize_inventory",
+          "description": "Optimize inventory levels"
+        },
+        {
+          "id": "minimize_risk",
+          "description": "Minimize supply chain risks"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "budget_limit",
+          "description": "Total project budget"
+        },
+        {
+          "id": "delivery_deadlines",
+          "description": "Component delivery deadlines"
+        },
+        {
+          "id": "supplier_capacity",
+          "description": "Supplier production capacity"
+        },
+        {
+          "id": "infrastructure_dependencies",
+          "description": "Infrastructure dependencies"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "s1",
+          "description": "Define project objectives, constraints, and evaluation metrics. Produce a constraint/cost-risk model and baseline data interpretation to guide all later planning (budget limits, deadlines, supplier capacities, lead times, infrastructure dependencies).",
+          "capability": "general",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "s2",
+          "description": "Develop procurement strategy: allocate components to suppliers with respect to lead times, capacities, and costs; generate a detailed procurement plan per component (gpu_chips, memory, cooling, power_supply, pcb).",
+          "capability": "logistics",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "s1"
+          ]
+        },
+        {
+          "task_id": "s3",
+          "description": "Plan manufacturing and assembly: allocate components to facilities (assembly, testing), verify capacity constraints, and create a production/assembly schedule including lead times and handoffs between stages.",
+          "capability": "scheduler",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "s1"
+          ]
+        },
+        {
+          "task_id": "s4",
+          "description": "Inventory optimization: determine optimal reorder points and safety stocks for components across suppliers and facilities to minimize holding costs while meeting demand.",
+          "capability": "optimizer",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "s1"
+          ]
+        },
+        {
+          "task_id": "s5",
+          "description": "Integrated delivery planning: schedule component deliveries to meet deadlines for assembly/testing, identify critical paths, and align with facility capacities.",
+          "capability": "logistics",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "s2",
+            "s3"
+          ]
+        },
+        {
+          "task_id": "s6",
+          "description": "Risk assessment and mitigation planning: quantify supply chain risks, evaluate tradeoffs, and propose contingency actions (alternative suppliers, buffer stocks, schedule slack).",
+          "capability": "validator",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "s2",
+            "s3",
+            "s4",
+            "s5"
+          ]
+        },
+        {
+          "task_id": "s7",
+          "description": "Consolidated execution plan and validation: integrate all outputs, produce the final plan document, and perform feasibility validation against constraints.",
+          "capability": "general",
+          "start_time": 60,
+          "end_time": 70,
+          "status": "completed",
+          "dependencies": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550517.6101298,
+            "agent_id": "general_agent_1756550457305",
+            "task_id": "s1"
+          },
+          {
+            "memory_mb": 0.109375,
+            "timestamp": 1756550517.6101341,
+            "agent_id": "logistics_agent_1756550467212",
+            "task_id": "s2"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756550517.6101382,
+            "agent_id": "scheduler_agent_1756550467216",
+            "task_id": "s3"
+          },
+          {
+            "memory_mb": 0.109375,
+            "timestamp": 1756550517.610141,
+            "agent_id": "optimizer_agent_1756550467218",
+            "task_id": "s4"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756550517.610145,
+            "agent_id": "logistics_agent_1756550467212",
+            "task_id": "s5"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550517.610147,
+            "agent_id": "validator_agent_1756550500851",
+            "task_id": "s6"
+          },
+          {
+            "memory_mb": 0.140625,
+            "timestamp": 1756550517.6101482,
+            "agent_id": "general_agent_1756550457305",
+            "task_id": "s7"
+          }
+        ],
+        "execution_times": [
+          9.903096675872803,
+          22.07536792755127,
+          9.891549110412598,
+          18.653699159622192,
+          11.554364919662476,
+          6.018802881240845,
+          10.733577966690063,
+          69.49422788619995
+        ],
+        "token_usage": {
+          "input": 15406,
+          "output": 7887,
+          "total": 23293
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 2831,
+            "output": 274,
+            "total": 3105
+          },
+          "execution": {
+            "input": 15406,
+            "output": 7887,
+            "total": 23293
+          },
+          "combined": {
+            "input": 18237,
+            "output": 8161,
+            "total": 26398
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 7,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 7,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 18237,
+        "output": 8161,
+        "total": 26398
+      },
+      "knowledge_retrieved": [],
+      "knowledge_retrieval_summary": {
+        "total_queries": 0,
+        "total_documents_retrieved": 0,
+        "sources": [],
+        "queries_made": []
+      },
+      "execution_time": 69.49422788619995,
+      "steps_taken": 5,
+      "retrieval_enabled": false,
+      "planning_latency_seconds": 9.186650037765503,
+      "planning_tokens": {
+        "input": 2831,
+        "output": 274,
+        "total": 3105
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 2831,
+          "output": 274,
+          "total": 3105
+        },
+        "execution": {
+          "input": 15406,
+          "output": 7887,
+          "total": 23293
+        },
+        "combined": {
+          "input": 18237,
+          "output": 8161,
+          "total": 26398
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "baseline",
+      "task_id": "P10",
+      "seed": 42,
+      "total_execution_time": 69.52186608314514
+    },
+    {
+      "run_id": "rag_P1_42_1756550517",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "visit_all_locations",
+          "description": "Visit all required campus locations"
+        },
+        {
+          "id": "minimize_travel_time",
+          "description": "Minimize total travel time"
+        },
+        {
+          "id": "respect_time_windows",
+          "description": "Respect all time window constraints"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "time_windows",
+          "description": "Each location has specific time windows"
+        },
+        {
+          "id": "travel_time",
+          "description": "Travel time between locations"
+        },
+        {
+          "id": "tour_duration",
+          "description": "Total tour must complete within time limit"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Aggregate problem data: confirm locations, start/end points (entrance), time windows for each location, and inter-location travel times; establish total time limit.",
+          "capability": "data_analyst",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Generate candidate visit sequences that cover all locations and return to start, producing feasible route options that respect spatial constraints.",
+          "capability": "optimizer",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S3",
+          "description": "Develop a time-window compliant schedule for each candidate route, mapping sequence to actual time stamps and ensuring end time within limit.",
+          "capability": "scheduler",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S2",
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Verify all constraints for selected route(s): time windows, total duration, and start/end points; report feasibility and any violations.",
+          "capability": "validator",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S3",
+            "S2"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Create a coordination and resource allocation plan: assign feasible tasks to agent capabilities (logistics, scheduler, data_analyst, validator) and outline parallel execution with minimal dependencies.",
+          "capability": "general",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S4",
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S6",
+          "description": "Produce final integrated plan and a concise execution guide for agents, including contingencies for delays and replan triggers.",
+          "capability": "general",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "S5"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.078125,
+            "timestamp": 1756550613.479949,
+            "agent_id": "data_analyst_agent_1756550537594",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.203125,
+            "timestamp": 1756550613.4799511,
+            "agent_id": "optimizer_agent_1756550554279",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550613.4799519,
+            "agent_id": "scheduler_agent_1756550575236",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550613.4799528,
+            "agent_id": "validator_agent_1756550588402",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": 0.171875,
+            "timestamp": 1756550613.479954,
+            "agent_id": "general_agent_1756550595034",
+            "task_id": "S5"
+          },
+          {
+            "memory_mb": 0.03125,
+            "timestamp": 1756550613.479954,
+            "agent_id": "general_agent_1756550595034",
+            "task_id": "S6"
+          }
+        ],
+        "execution_times": [
+          16.67989492416382,
+          20.952198028564453,
+          13.16286587715149,
+          6.627510070800781,
+          7.2070701122283936,
+          11.229243755340576,
+          95.8038489818573
+        ],
+        "token_usage": {
+          "input": 11101,
+          "output": 8077,
+          "total": 19178
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3180,
+            "output": 505,
+            "total": 3685
+          },
+          "execution": {
+            "input": 11101,
+            "output": 8077,
+            "total": 19178
+          },
+          "combined": {
+            "input": 14281,
+            "output": 8582,
+            "total": 22863
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 14281,
+        "output": 8582,
+        "total": 22863
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756550522.077705,
+          "query": "task decomposition strategies for Planning visit waypoints within time windows under spatial constraints",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550524.3618371,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570985556,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.550584435,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.548043311,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550527.246024,
+          "query": "project management best practices for Visit all required campus locations Minimize total travel time Respect all time window constraints",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 3,
+        "total_documents_retrieved": 3,
+        "unique_sources_accessed": 1,
+        "sources": [
+          "Li2024.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Planning visit waypoints within time windows under spatial constraints",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Visit all required campus locations Minimize total travel time Respect all time window constraints",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 95.8038489818573,
+      "steps_taken": 6,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 19.915394067764282,
+      "planning_tokens": {
+        "input": 3180,
+        "output": 505,
+        "total": 3685
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3180,
+          "output": 505,
+          "total": 3685
+        },
+        "execution": {
+          "input": 11101,
+          "output": 8077,
+          "total": 19178
+        },
+        "combined": {
+          "input": 14281,
+          "output": 8582,
+          "total": 22863
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P1",
+      "seed": 42,
+      "total_execution_time": 95.86844301223755
+    },
+    {
+      "run_id": "rag_P2_42_1756550613",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "serve_all_groups",
+          "description": "Serve all visitor groups"
+        },
+        {
+          "id": "minimize_wait_time",
+          "description": "Minimize group wait times"
+        },
+        {
+          "id": "balance_guide_workload",
+          "description": "Balance workload across guides"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "guide_availability",
+          "description": "Guide availability schedules"
+        },
+        {
+          "id": "group_size",
+          "description": "Maximum group size per guide"
+        },
+        {
+          "id": "tour_duration",
+          "description": "Each tour must complete within time limit"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "A_capacity_constraint_modeling",
+          "description": "Model guide availability, maximum group size per guide, and time window constraints; produce a feasibility matrix of which guides can serve which groups and potential start times.",
+          "capability": "data_analyst",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "B_initial_parallel_assignment",
+          "description": "Generate initial parallel assignment proposals mapping groups to guides that satisfy feasibility, producing multiple candidate allocations to maximize parallelism.",
+          "capability": "resource_manager",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "A_capacity_constraint_modeling"
+          ]
+        },
+        {
+          "task_id": "C_optimization_and_balance",
+          "description": "Run optimization to minimize wait times and balance workload across guides given candidate allocations; output recommended plan.",
+          "capability": "optimizer",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "B_initial_parallel_assignment"
+          ]
+        },
+        {
+          "task_id": "D_constraint_validation",
+          "description": "Validate the recommended plan against all constraints (availability, capacity, time limits) and flag any infeasibilities; provide fallback adjustments if needed.",
+          "capability": "validator",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "C_optimization_and_balance"
+          ]
+        },
+        {
+          "task_id": "E_final_execution_plan",
+          "description": "Produce the final, executable execution plan with timelines, guide assignments, and handoffs; prepare operational directives for guides and coordinators.",
+          "capability": "scheduler",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "D_constraint_validation"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550677.154582,
+            "agent_id": "data_analyst_agent_1756550625652",
+            "task_id": "A_capacity_constraint_modeling"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550677.1545851,
+            "agent_id": "resource_manager_agent_1756550642762",
+            "task_id": "B_initial_parallel_assignment"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756550677.154589,
+            "agent_id": "optimizer_agent_1756550649615",
+            "task_id": "C_optimization_and_balance"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550677.154591,
+            "agent_id": "validator_agent_1756550663646",
+            "task_id": "D_constraint_validation"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550677.154593,
+            "agent_id": "scheduler_agent_1756550670377",
+            "task_id": "E_final_execution_plan"
+          }
+        ],
+        "execution_times": [
+          17.105541706085205,
+          6.848893880844116,
+          14.025919914245605,
+          6.726055145263672,
+          6.774139165878296,
+          63.63484287261963
+        ],
+        "token_usage": {
+          "input": 7966,
+          "output": 4846,
+          "total": 12812
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3088,
+            "output": 525,
+            "total": 3613
+          },
+          "execution": {
+            "input": 7966,
+            "output": 4846,
+            "total": 12812
+          },
+          "combined": {
+            "input": 11054,
+            "output": 5371,
+            "total": 16425
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 5,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 5,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 11054,
+        "output": 5371,
+        "total": 16425
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756550616.582033,
+          "query": "task decomposition strategies for Scheduling multiple tour guides to serve independent visitor groups concurrently",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550617.10765,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570985556,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.550584435,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.548043311,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550617.7321532,
+          "query": "project management best practices for Serve all visitor groups Minimize group wait times Balance workload across guides",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 3,
+        "total_documents_retrieved": 3,
+        "unique_sources_accessed": 1,
+        "sources": [
+          "Li2024.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Scheduling multiple tour guides to serve independent visitor groups concurrently",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Serve all visitor groups Minimize group wait times Balance workload across guides",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 63.63484287261963,
+      "steps_taken": 5,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 12.129686117172241,
+      "planning_tokens": {
+        "input": 3088,
+        "output": 525,
+        "total": 3613
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3088,
+          "output": 525,
+          "total": 3613
+        },
+        "execution": {
+          "input": 7966,
+          "output": 4846,
+          "total": 12812
+        },
+        "combined": {
+          "input": 11054,
+          "output": 5371,
+          "total": 16425
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P2",
+      "seed": 42,
+      "total_execution_time": 63.674631118774414
+    },
+    {
+      "run_id": "rag_P3_42_1756550677",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "serve_all_passengers",
+          "description": "Serve all passenger requests"
+        },
+        {
+          "id": "minimize_total_distance",
+          "description": "Minimize total vehicle travel distance"
+        },
+        {
+          "id": "meet_deadlines",
+          "description": "Meet all passenger deadlines"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "vehicle_capacity",
+          "description": "Vehicle passenger capacity"
+        },
+        {
+          "id": "passenger_deadlines",
+          "description": "Passenger arrival deadlines"
+        },
+        {
+          "id": "vehicle_fuel",
+          "description": "Vehicle fuel constraints"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Model initial state: inventory/locations of vehicles, their fuel, capacities, and current passenger requests with deadlines; extract constraints relevant to routing (capacity, fuel, pickup/dropoff, deadlines)",
+          "capability": "data_analyst",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Generate candidate task decomposition and routing problem structure (subtasks: assign each passenger to a vehicle and determine pickup/dropoff sequence options) using interleaved decomposition approach; outline parallelizable subproblems",
+          "capability": "general",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S3",
+          "description": "Preliminary allocation plan: assign passengers to vehicles ensuring capacity feasibility and meeting deadlines; identify any infeasible requests early",
+          "capability": "resource_manager",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S2",
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Compute optimized routes and schedules to minimize total travel distance while respecting deadlines and fuel constraints (use optimizer capability; consider parallel evaluation of multiple route options)",
+          "capability": "optimizer",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S3",
+            "S2"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Feasibility check and validation of plan against all constraints (deadlines, capacity, fuel, pickup/dropoff sequencing)",
+          "capability": "validator",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S4",
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S6",
+          "description": "Generate actionable execution plan for fleet operators and agents; include timeline, assigned vehicles, and passenger-to-vehicle mappings; prepare for monitoring and replanning if events change",
+          "capability": "scheduler",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "S5"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.03125,
+            "timestamp": 1756550755.3310778,
+            "agent_id": "data_analyst_agent_1756550692503",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756550755.3310819,
+            "agent_id": "general_agent_1756550709365",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550755.331085,
+            "agent_id": "resource_manager_agent_1756550718871",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.09375,
+            "timestamp": 1756550755.3310888,
+            "agent_id": "optimizer_agent_1756550725158",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550755.331091,
+            "agent_id": "validator_agent_1756550739727",
+            "task_id": "S5"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550755.331093,
+            "agent_id": "scheduler_agent_1756550747163",
+            "task_id": "S6"
+          }
+        ],
+        "execution_times": [
+          16.85833764076233,
+          9.501199960708618,
+          6.282054901123047,
+          14.565037250518799,
+          7.431990146636963,
+          8.164319038391113,
+          78.13481330871582
+        ],
+        "token_usage": {
+          "input": 11180,
+          "output": 5546,
+          "total": 16726
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3776,
+            "output": 591,
+            "total": 4367
+          },
+          "execution": {
+            "input": 11180,
+            "output": 5546,
+            "total": 16726
+          },
+          "combined": {
+            "input": 14956,
+            "output": 6137,
+            "total": 21093
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 14956,
+        "output": 6137,
+        "total": 21093
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756550679.975903,
+          "query": "task decomposition strategies for Planning and scheduling to optimize ride assignments for passengers with deadlines and vehicle constraints",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 1,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.504135847,
+              "source": "Li2024.md",
+              "chunk_index": 14.0,
+              "text_preview": "e, establishing a standard specification language for multi-agent\nplanning. However, these methods can be limited by their complexity and heavy reliance on human\nexperts (Huang et al., 2024). Recently..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550681.4327428,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570985556,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.550584435,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.548043311,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550683.41286,
+          "query": "project management best practices for Serve all passenger requests Minimize total vehicle travel distance Meet all passenger deadlines",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550685.242294,
+          "query": "project management best practices planning and scheduling transportation services deadlines capacity constraints EU project management handbook",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 2,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.514683366,
+              "source": "PM2EU.md",
+              "chunk_index": 44.0,
+              "text_preview": "he\nEuropean Commission and to a number of affiliate European Institutions).\n\nPM\u00b2  incorporates  elements  from  a  wide  range  of  globally  accepted  project  management  best  practices,\ncaptured  ..."
+            },
+            {
+              "score": 0.506484509,
+              "source": "PM2EU.md",
+              "chunk_index": 0.0,
+              "text_preview": "Project Management\nMethodology\n\nGuide 3.1\n\n\fEuropean Commission\nCentre of Excellence in Project Management (CoEPM\u00b2)\n\nPM\u00b2 Project Management Methodology\nGuide 3.1\n\nBrussels | Luxembourg, 2023\n\n\fNeither..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 4,
+        "total_documents_retrieved": 6,
+        "unique_sources_accessed": 2,
+        "sources": [
+          "Li2024.md",
+          "PM2EU.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Planning and scheduling to optimize ride assignments for passengers with deadlines and vehicle constraints",
+            "matches_found": 1,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Serve all passenger requests Minimize total vehicle travel distance Meet all passenger deadlines",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices planning and scheduling transportation services deadlines capacity constraints EU project management handbook",
+            "matches_found": 2,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 78.13481330871582,
+      "steps_taken": 6,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 15.30422306060791,
+      "planning_tokens": {
+        "input": 3776,
+        "output": 591,
+        "total": 4367
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3776,
+          "output": 591,
+          "total": 4367
+        },
+        "execution": {
+          "input": 11180,
+          "output": 5546,
+          "total": 16726
+        },
+        "combined": {
+          "input": 14956,
+          "output": 6137,
+          "total": 21093
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P3",
+      "seed": 42,
+      "total_execution_time": 78.17708110809326
+    },
+    {
+      "run_id": "rag_P4_42_1756550755",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "serve_all_passengers",
+          "description": "Serve all passenger requests"
+        },
+        {
+          "id": "minimize_delays",
+          "description": "Minimize delays due to disruptions"
+        },
+        {
+          "id": "adapt_to_changes",
+          "description": "Successfully adapt to route changes"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "vehicle_capacity",
+          "description": "Vehicle passenger capacity"
+        },
+        {
+          "id": "passenger_deadlines",
+          "description": "Passenger arrival deadlines"
+        },
+        {
+          "id": "route_availability",
+          "description": "Route availability constraints"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Establish global planning model: capture inputs (vehicles, passenger, capacities, deadlines), constraints (capacity, deadlines, route availability), and baseline objectives for minimizing delays and disruptions.",
+          "capability": "general",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Implement dynamic routing feasibility monitor to detect and propagate route changes and delays, updating feasible routes in real-time.",
+          "capability": "logistics",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S3",
+          "description": "Decompose the planning problem into tasks and define explicit dependencies and convergence points to enable parallel execution.",
+          "capability": "scheduler",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Develop vehicle-to-passenger assignment plan considering current locations, capacity, and updated route feasibility, with fallback options.",
+          "capability": "resource_manager",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S1",
+            "S2",
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Create precise time-based schedule (pickup/dropoff times) ensuring deadlines are met and align with vehicle availability, incorporating buffers for disruptions.",
+          "capability": "scheduler",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S4"
+          ]
+        },
+        {
+          "task_id": "S6",
+          "description": "Integrate plan, run feasibility verification, and produce adaptation strategies for disruptions; this includes an override protocol if routes become infeasible.",
+          "capability": "validator",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "S2",
+            "S4",
+            "S5"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.078125,
+            "timestamp": 1756550818.194967,
+            "agent_id": "general_agent_1756550772610",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.140625,
+            "timestamp": 1756550818.1949692,
+            "agent_id": "logistics_agent_1756550791988",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.03125,
+            "timestamp": 1756550818.1949701,
+            "agent_id": "scheduler_agent_1756550791991",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550818.1949708,
+            "agent_id": "resource_manager_agent_1756550802302",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550818.1949718,
+            "agent_id": "scheduler_agent_1756550791991",
+            "task_id": "S5"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550818.1949718,
+            "agent_id": "validator_agent_1756550812227",
+            "task_id": "S6"
+          }
+        ],
+        "execution_times": [
+          19.37343406677246,
+          10.309435844421387,
+          3.706806182861328,
+          4.093411684036255,
+          5.823295831680298,
+          5.964000940322876,
+          62.820425033569336
+        ],
+        "token_usage": {
+          "input": 9624,
+          "output": 4685,
+          "total": 14309
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3868,
+            "output": 545,
+            "total": 4413
+          },
+          "execution": {
+            "input": 9624,
+            "output": 4685,
+            "total": 14309
+          },
+          "combined": {
+            "input": 13492,
+            "output": 5230,
+            "total": 18722
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 13492,
+        "output": 5230,
+        "total": 18722
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756550760.317599,
+          "query": "task decomposition strategies for Planning and scheduling with traffic delays and dynamic changes to route feasibility",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 2,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.523383319,
+              "source": "Li2024.md",
+              "chunk_index": 14.0,
+              "text_preview": "e, establishing a standard specification language for multi-agent\nplanning. However, these methods can be limited by their complexity and heavy reliance on human\nexperts (Huang et al., 2024). Recently..."
+            },
+            {
+              "score": 0.509392083,
+              "source": "Li2024.md",
+              "chunk_index": 35.0,
+              "text_preview": "ng these two tasks en-\nhances the effectiveness of agent-oriented planning. (iii) Structured decomposition of tasks: The\ndecomposed tasks are required to be structured in a sequential manner, specifyi..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550762.2996118,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570985556,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.550584435,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.548043311,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550764.5367749,
+          "query": "project management best practices for Serve all passenger requests Minimize delays due to disruptions Successfully adapt to route changes",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 3,
+        "total_documents_retrieved": 5,
+        "unique_sources_accessed": 1,
+        "sources": [
+          "Li2024.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Planning and scheduling with traffic delays and dynamic changes to route feasibility",
+            "matches_found": 2,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Serve all passenger requests Minimize delays due to disruptions Successfully adapt to route changes",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 62.820425033569336,
+      "steps_taken": 5,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 17.23269295692444,
+      "planning_tokens": {
+        "input": 3868,
+        "output": 545,
+        "total": 4413
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3868,
+          "output": 545,
+          "total": 4413
+        },
+        "execution": {
+          "input": 9624,
+          "output": 4685,
+          "total": 14309
+        },
+        "combined": {
+          "input": 13492,
+          "output": 5230,
+          "total": 18722
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P4",
+      "seed": 42,
+      "total_execution_time": 62.86186194419861
+    },
+    {
+      "run_id": "rag_P5_42_1756550818",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "coordinate_arrivals",
+          "description": "Coordinate all guest arrivals"
+        },
+        {
+          "id": "complete_errands",
+          "description": "Complete all required errands"
+        },
+        {
+          "id": "optimize_vehicle_usage",
+          "description": "Optimize shared vehicle usage"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "wedding_deadline",
+          "description": "Wedding ceremony deadline"
+        },
+        {
+          "id": "vehicle_capacity",
+          "description": "Vehicle passenger capacity"
+        },
+        {
+          "id": "errand_dependencies",
+          "description": "Errand completion dependencies"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Establish ceremony deadline-centered master schedule; define feasible time windows, milestones, and validation checks to ensure all arrivals and errands can be completed before the wedding.",
+          "capability": "scheduler",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Coordinate guest arrivals and local transports: assign vehicles to transport family1 from airport and family2 from hotel to ceremony location, respecting vehicle capacities and travel times; produce concrete vehicle assignment plan.",
+          "capability": "logistics",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S3",
+          "description": "Plan and sequence errands (flowers, cake, decorations, photographer, music) with dependencies and routing constraints; ensure errands align with arrival windows and do not delay ceremony.",
+          "capability": "logistics",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Optimize overall shared vehicle usage: minimize number of trips and total travel time across vans and cars, while respecting capacities and time windows from S1-S3.",
+          "capability": "optimizer",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S2",
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Develop contingency and exception handling: alternate transport and errand sequencing in case of delays or vehicle unavailability; document trigger conditions and recovery steps.",
+          "capability": "scheduler",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S1",
+            "S2",
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S6",
+          "description": "Define monitoring, real-time adjustment protocol and reporting: how to track progress, reallocate resources, and communicate changes to stakeholders during execution.",
+          "capability": "validator",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S5"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550869.163925,
+            "agent_id": "scheduler_agent_1756550831375",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.125,
+            "timestamp": 1756550869.163927,
+            "agent_id": "logistics_agent_1756550838144",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.125,
+            "timestamp": 1756550869.163928,
+            "agent_id": "logistics_agent_1756550838148",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.03125,
+            "timestamp": 1756550869.163929,
+            "agent_id": "optimizer_agent_1756550851737",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550869.1639302,
+            "agent_id": "scheduler_agent_1756550831375",
+            "task_id": "S5"
+          },
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756550869.163931,
+            "agent_id": "validator_agent_1756550864106",
+            "task_id": "S6"
+          }
+        ],
+        "execution_times": [
+          6.7656779289245605,
+          13.588519811630249,
+          10.632596969604492,
+          12.364509105682373,
+          6.9730470180511475,
+          5.053231716156006,
+          50.92800498008728
+        ],
+        "token_usage": {
+          "input": 10473,
+          "output": 5268,
+          "total": 15741
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3821,
+            "output": 619,
+            "total": 4440
+          },
+          "execution": {
+            "input": 10473,
+            "output": 5268,
+            "total": 15741
+          },
+          "combined": {
+            "input": 14294,
+            "output": 5887,
+            "total": 20181
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 14294,
+        "output": 5887,
+        "total": 20181
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756550821.829806,
+          "query": "task decomposition strategies for Planning and scheduling to coordinate group arrivals, errands, and shared vehicle usage under deadlines",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 2,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.528804541,
+              "source": "Li2024.md",
+              "chunk_index": 14.0,
+              "text_preview": "e, establishing a standard specification language for multi-agent\nplanning. However, these methods can be limited by their complexity and heavy reliance on human\nexperts (Huang et al., 2024). Recently..."
+            },
+            {
+              "score": 0.515772,
+              "source": "Li2024.md",
+              "chunk_index": 35.0,
+              "text_preview": "ng these two tasks en-\nhances the effectiveness of agent-oriented planning. (iii) Structured decomposition of tasks: The\ndecomposed tasks are required to be structured in a sequential manner, specifyi..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550822.6049411,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570912957,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.5505476,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.547965705,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550823.038891,
+          "query": "project management best practices for Coordinate all guest arrivals Complete all required errands Optimize shared vehicle usage",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 3,
+        "total_documents_retrieved": 5,
+        "unique_sources_accessed": 1,
+        "sources": [
+          "Li2024.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Planning and scheduling to coordinate group arrivals, errands, and shared vehicle usage under deadlines",
+            "matches_found": 2,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Coordinate all guest arrivals Complete all required errands Optimize shared vehicle usage",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 50.92800498008728,
+      "steps_taken": 4,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 13.136661767959595,
+      "planning_tokens": {
+        "input": 3821,
+        "output": 619,
+        "total": 4440
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3821,
+          "output": 619,
+          "total": 4440
+        },
+        "execution": {
+          "input": 10473,
+          "output": 5268,
+          "total": 15741
+        },
+        "combined": {
+          "input": 14294,
+          "output": 5887,
+          "total": 20181
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P5",
+      "seed": 42,
+      "total_execution_time": 50.968461990356445
+    },
+    {
+      "run_id": "rag_P6_42_1756550869",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "coordinate_travel",
+          "description": "Coordinate all family travel"
+        },
+        {
+          "id": "prepare_meal",
+          "description": "Complete meal preparation on time"
+        },
+        {
+          "id": "minimize_conflicts",
+          "description": "Minimize kitchen and resource conflicts"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "dinner_deadline",
+          "description": "Dinner serving deadline"
+        },
+        {
+          "id": "kitchen_capacity",
+          "description": "Kitchen workspace capacity"
+        },
+        {
+          "id": "cooking_dependencies",
+          "description": "Cooking task dependencies"
+        },
+        {
+          "id": "airport_pickups",
+          "description": "Airport pickup scheduling"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Develop an integrated travel and meal-prep timeline that aligns airport pickup schedules with dinner deadline, creating a master schedule with milestones.",
+          "capability": "scheduler",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Assign airport pickup tasks to available vehicles and drivers, considering car capacities, current locations, and arrival times; generate optimized pickup routes.",
+          "capability": "logistics",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S3",
+          "description": "Allocate cooking tasks to family members based on skills and availability; produce a preliminary kitchen task plan and parallel work lines to minimize conflicts.",
+          "capability": "resource_manager",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Create a synchronized kitchen workflow with workspace constraints (counter space, utensils, and order of cooking tasks) to minimize conflicts and meet dinner deadline.",
+          "capability": "optimizer",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Validation and monitoring plan: check feasibility against constraints, establish progress tracking, and define contingency actions for delays or resource changes.",
+          "capability": "validator",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S2",
+            "S3",
+            "S4"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550917.294306,
+            "agent_id": "scheduler_agent_1756550882883",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.078125,
+            "timestamp": 1756550917.2943091,
+            "agent_id": "logistics_agent_1756550892273",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.0625,
+            "timestamp": 1756550917.2943099,
+            "agent_id": "resource_manager_agent_1756550892277",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.078125,
+            "timestamp": 1756550917.2943108,
+            "agent_id": "optimizer_agent_1756550900292",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550917.294312,
+            "agent_id": "validator_agent_1756550910445",
+            "task_id": "S5"
+          }
+        ],
+        "execution_times": [
+          9.385389804840088,
+          8.014748096466064,
+          6.6272077560424805,
+          10.147643089294434,
+          6.842193841934204,
+          48.09066915512085
+        ],
+        "token_usage": {
+          "input": 6169,
+          "output": 5663,
+          "total": 11832
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3345,
+            "output": 545,
+            "total": 3890
+          },
+          "execution": {
+            "input": 6169,
+            "output": 5663,
+            "total": 11832
+          },
+          "combined": {
+            "input": 9514,
+            "output": 6208,
+            "total": 15722
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 5,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 5,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 9514,
+        "output": 6208,
+        "total": 15722
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756550874.277441,
+          "query": "task decomposition strategies for Planning and scheduling to synchronize travel and meal preparation among family members with airport pickups and kitchen dependencies",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 2,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.530041218,
+              "source": "Li2024.md",
+              "chunk_index": 14.0,
+              "text_preview": "e, establishing a standard specification language for multi-agent\nplanning. However, these methods can be limited by their complexity and heavy reliance on human\nexperts (Huang et al., 2024). Recently..."
+            },
+            {
+              "score": 0.516445518,
+              "source": "Li2024.md",
+              "chunk_index": 35.0,
+              "text_preview": "ng these two tasks en-\nhances the effectiveness of agent-oriented planning. (iii) Structured decomposition of tasks: The\ndecomposed tasks are required to be structured in a sequential manner, specifyi..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550875.351444,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570985556,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.550584435,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.548043311,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550876.356933,
+          "query": "project management best practices for Coordinate all family travel Complete meal preparation on time Minimize kitchen and resource conflicts",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 3,
+        "total_documents_retrieved": 5,
+        "unique_sources_accessed": 1,
+        "sources": [
+          "Li2024.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Planning and scheduling to synchronize travel and meal preparation among family members with airport pickups and kitchen dependencies",
+            "matches_found": 2,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Coordinate all family travel Complete meal preparation on time Minimize kitchen and resource conflicts",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 48.09066915512085,
+      "steps_taken": 4,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 13.677412033081055,
+      "planning_tokens": {
+        "input": 3345,
+        "output": 545,
+        "total": 3890
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3345,
+          "output": 545,
+          "total": 3890
+        },
+        "execution": {
+          "input": 6169,
+          "output": 5663,
+          "total": 11832
+        },
+        "combined": {
+          "input": 9514,
+          "output": 6208,
+          "total": 15722
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P6",
+      "seed": 42,
+      "total_execution_time": 48.129809856414795
+    },
+    {
+      "run_id": "rag_P7_42_1756550917",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "maximize_aid_delivery",
+          "description": "Maximize aid delivery to affected areas"
+        },
+        {
+          "id": "minimize_response_time",
+          "description": "Minimize response time to emergencies"
+        },
+        {
+          "id": "optimize_resource_allocation",
+          "description": "Optimize resource allocation"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "resource_availability",
+          "description": "Available relief resources"
+        },
+        {
+          "id": "personnel_capacity",
+          "description": "Personnel availability"
+        },
+        {
+          "id": "emergency_deadlines",
+          "description": "Emergency response deadlines"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Perform fast decomposition of the planning problem into actionable subtasks and an initial task graph, using interleaved decomposition approach. Output: list of subtasks, owners, and dependencies (minimized).",
+          "capability": "general",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Define agent coordination patterns and allocation rules (solvability, non-redundancy, completeness). Specify which agent types (logistics, scheduler, resource_manager, optimizer) handle which classes of subtasks and how meta-agent supervises flow.",
+          "capability": "logistics",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S3",
+          "description": "Develop an initial resource allocation and routing plan using available personnel and vehicles to satisfy region needs under constraints. Produce candidate allocations and routes with capacity checks.",
+          "capability": "optimizer",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S1",
+            "S2"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Create a time-phased scheduler with delivery windows and emergency deadlines, including contingencies for evolving needs and potential delays. Align with S3 allocations.",
+          "capability": "scheduler",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S1",
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Validate feasibility, perform constraint checks, and develop risk/uncertainty mitigation plan. Prepare integration-ready plan for execution by the operational agents.",
+          "capability": "validator",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S3",
+            "S4"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.0625,
+            "timestamp": 1756550979.241478,
+            "agent_id": "general_agent_1756550931217",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.03125,
+            "timestamp": 1756550979.241483,
+            "agent_id": "logistics_agent_1756550940535",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.0625,
+            "timestamp": 1756550979.241486,
+            "agent_id": "optimizer_agent_1756550954559",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756550979.241489,
+            "agent_id": "scheduler_agent_1756550965521",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": 0.03125,
+            "timestamp": 1756550979.24149,
+            "agent_id": "validator_agent_1756550972697",
+            "task_id": "S5"
+          }
+        ],
+        "execution_times": [
+          9.313136339187622,
+          14.020649909973145,
+          10.952085018157959,
+          7.172408103942871,
+          6.540381908416748,
+          61.90783095359802
+        ],
+        "token_usage": {
+          "input": 8125,
+          "output": 4899,
+          "total": 13024
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3953,
+            "output": 445,
+            "total": 4398
+          },
+          "execution": {
+            "input": 8125,
+            "output": 4899,
+            "total": 13024
+          },
+          "combined": {
+            "input": 12078,
+            "output": 5344,
+            "total": 17422
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 5,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 5,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 12078,
+        "output": 5344,
+        "total": 17422
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756550919.909137,
+          "query": "task decomposition strategies for Planning and scheduling to allocate aid and personnel across regions under uncertainty and evolving needs",
+          "top_k_requested": 5,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.556929708,
+              "source": "Li2024.md",
+              "chunk_index": 14.0,
+              "text_preview": "e, establishing a standard specification language for multi-agent\nplanning. However, these methods can be limited by their complexity and heavy reliance on human\nexperts (Huang et al., 2024). Recently..."
+            },
+            {
+              "score": 0.535412,
+              "source": "Li2024.md",
+              "chunk_index": 35.0,
+              "text_preview": "ng these two tasks en-\nhances the effectiveness of agent-oriented planning. (iii) Structured decomposition of tasks: The\ndecomposed tasks are required to be structured in a sequential manner, specifyi..."
+            },
+            {
+              "score": 0.505226,
+              "source": "Li2024.md",
+              "chunk_index": 29.0,
+              "text_preview": "rchitecture\nillustrated in Figure 2.\n\n4.1 FAST DECOMPOSITION AND ALLOCATION\n\nFirst of all, following existing studies (Shen et al., 2023; Chen et al., 2024), we provide detailed\ninstructions to the me..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550921.972642,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 5,
+          "score_threshold": 0.5,
+          "matches_found": 5,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570985556,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.550584435,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.548043311,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            },
+            {
+              "score": 0.545385122,
+              "source": "Li2024.md",
+              "chunk_index": 2.0,
+              "text_preview": "ch sub-task can be effectively resolved, re-\nsulting in satisfactory responses to user queries. These principles further inspire\nus to propose AOP, a novel framework for agent-oriented planning in mul..."
+            },
+            {
+              "score": 0.542915404,
+              "source": "Li2024.md",
+              "chunk_index": 5.0,
+              "text_preview": "s\nagents, promoting comprehensive solutions to complex real-world problems.\n\nPrevious studies (Cai et al., 2023; Qian et al., 2024) propose to define suitable standard operating\nprocedures (SOPs) base..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550923.9242308,
+          "query": "project management best practices for Maximize aid delivery to affected areas Minimize response time to emergencies Optimize resource allocation",
+          "top_k_requested": 5,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 3,
+        "total_documents_retrieved": 8,
+        "unique_sources_accessed": 1,
+        "sources": [
+          "Li2024.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Planning and scheduling to allocate aid and personnel across regions under uncertainty and evolving needs",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 5,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Maximize aid delivery to affected areas Minimize response time to emergencies Optimize resource allocation",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 61.90783095359802,
+      "steps_taken": 5,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 13.88113784790039,
+      "planning_tokens": {
+        "input": 3953,
+        "output": 445,
+        "total": 4398
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3953,
+          "output": 445,
+          "total": 4398
+        },
+        "execution": {
+          "input": 8125,
+          "output": 4899,
+          "total": 13024
+        },
+        "combined": {
+          "input": 12078,
+          "output": 5344,
+          "total": 17422
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P7",
+      "seed": 42,
+      "total_execution_time": 61.948201179504395
+    },
+    {
+      "run_id": "rag_P8_42_1756550979",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "coordinate_arrivals",
+          "description": "Coordinate all guest arrivals"
+        },
+        {
+          "id": "complete_errands",
+          "description": "Complete all required errands"
+        },
+        {
+          "id": "adapt_to_disruptions",
+          "description": "Successfully adapt to disruptions"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "wedding_deadline",
+          "description": "Wedding ceremony deadline"
+        },
+        {
+          "id": "vehicle_capacity",
+          "description": "Vehicle passenger capacity"
+        },
+        {
+          "id": "route_availability",
+          "description": "Route availability constraints"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Develop initial planning framework that includes overall timeline, route options, and road-closure constraints for guest arrivals and errands; identify potential conflicts and alternative paths.",
+          "capability": "general",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Allocate vehicles (van and car1) to specific legs of the plan based on capacity and current locations; produce preliminary vehicle assignment matrix.",
+          "capability": "general",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S3",
+          "description": "Create scheduled timelines for guest arrivals and errands, including deadlines (wedding ceremony) and inter-task dependencies; flag timing conflicts for replanning.",
+          "capability": "general",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S1",
+            "S2"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Define disruption monitoring and reactive replanning protocol: triggers, re-optimization steps, and authority boundaries to handle road closures or delays.",
+          "capability": "general",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Consolidate into a final execution plan with clear task handoffs, parallelizable blocks, and integration checks to minimize dependencies and ensure feasibility.",
+          "capability": "general",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S2",
+            "S3",
+            "S4"
+          ]
+        },
+        {
+          "task_id": "S6",
+          "description": "Develop a communication and alerting plan for all agents and stakeholders, including status updates, escalation paths, and synchronization signals.",
+          "capability": "general",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "S5"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.078125,
+            "timestamp": 1756551059.7039812,
+            "agent_id": "general_agent_1756550993272",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756551059.703983,
+            "agent_id": "general_agent_1756550993272",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.09375,
+            "timestamp": 1756551059.703985,
+            "agent_id": "general_agent_1756550993272",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.078125,
+            "timestamp": 1756551059.703986,
+            "agent_id": "general_agent_1756550993272",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756551059.703987,
+            "agent_id": "general_agent_1756550993272",
+            "task_id": "S5"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756551059.703988,
+            "agent_id": "general_agent_1756550993272",
+            "task_id": "S6"
+          }
+        ],
+        "execution_times": [
+          12.05509901046753,
+          10.481921911239624,
+          16.862478971481323,
+          8.3368399143219,
+          7.770904779434204,
+          10.900712966918945,
+          80.42018604278564
+        ],
+        "token_usage": {
+          "input": 13278,
+          "output": 4224,
+          "total": 17502
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3608,
+            "output": 503,
+            "total": 4111
+          },
+          "execution": {
+            "input": 13278,
+            "output": 4224,
+            "total": 17502
+          },
+          "combined": {
+            "input": 16886,
+            "output": 4727,
+            "total": 21613
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 16886,
+        "output": 4727,
+        "total": 21613
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756550982.120065,
+          "query": "task decomposition strategies for Planning and scheduling with road closures and timing conflicts requiring reactive replanning",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 2,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.53055352,
+              "source": "Li2024.md",
+              "chunk_index": 14.0,
+              "text_preview": "e, establishing a standard specification language for multi-agent\nplanning. However, these methods can be limited by their complexity and heavy reliance on human\nexperts (Huang et al., 2024). Recently..."
+            },
+            {
+              "score": 0.519608736,
+              "source": "Li2024.md",
+              "chunk_index": 35.0,
+              "text_preview": "ng these two tasks en-\nhances the effectiveness of agent-oriented planning. (iii) Structured decomposition of tasks: The\ndecomposed tasks are required to be structured in a sequential manner, specifyi..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550983.634204,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570985556,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.550584435,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.548043311,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756550985.406136,
+          "query": "project management best practices for Coordinate all guest arrivals Complete all required errands Successfully adapt to disruptions",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 3,
+        "total_documents_retrieved": 5,
+        "unique_sources_accessed": 1,
+        "sources": [
+          "Li2024.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Planning and scheduling with road closures and timing conflicts requiring reactive replanning",
+            "matches_found": 2,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Coordinate all guest arrivals Complete all required errands Successfully adapt to disruptions",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 80.42018604278564,
+      "steps_taken": 6,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 13.985320806503296,
+      "planning_tokens": {
+        "input": 3608,
+        "output": 503,
+        "total": 4111
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3608,
+          "output": 503,
+          "total": 4111
+        },
+        "execution": {
+          "input": 13278,
+          "output": 4224,
+          "total": 17502
+        },
+        "combined": {
+          "input": 16886,
+          "output": 4727,
+          "total": 21613
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P8",
+      "seed": 42,
+      "total_execution_time": 80.46163988113403
+    },
+    {
+      "run_id": "rag_P9_42_1756551059",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "coordinate_travel",
+          "description": "Coordinate all family travel"
+        },
+        {
+          "id": "prepare_meal",
+          "description": "Complete meal preparation on time"
+        },
+        {
+          "id": "adapt_to_delays",
+          "description": "Successfully adapt to flight delays"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "dinner_deadline",
+          "description": "Dinner serving deadline"
+        },
+        {
+          "id": "kitchen_capacity",
+          "description": "Kitchen workspace capacity"
+        },
+        {
+          "id": "flight_schedules",
+          "description": "Flight arrival schedules"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "T1",
+          "description": "Develop initial travel and guest coordination plan: align family flights (mom and dad), assign travel duties, and establish recovery windows for potential delays.",
+          "capability": "logistics",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "T2",
+          "description": "Create meal preparation timetable that covers turkey, stuffing, gravy, and potatoes, assigns tasks to mom/dad based on skills, and respects dinner deadline and kitchen capacity.",
+          "capability": "scheduler",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "T3",
+          "description": "Design overall integration plan that combines travel, meal timing, and recovery windows into a coherent schedule, including data flow between travel and kitchen tasks.",
+          "capability": "general",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "task_id": "T4",
+          "description": "Set up real-time monitoring and contingency mechanism to detect flight delays and re-optimize travel and kitchen plans accordingly.",
+          "capability": "scheduler",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "task_id": "T5",
+          "description": "Plan vehicle and routing logistics for airport pickups/drop-offs (car1 and car2), ensuring capacity constraints and proximity to home/airport locales.",
+          "capability": "logistics",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "T6",
+          "description": "Define meta-rule set for task decomposition, agent allocation, and dependency management to enable scalable orchestration by a meta-agent.",
+          "capability": "general",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "T3",
+            "T4",
+            "T5",
+            "T2"
+          ]
+        },
+        {
+          "task_id": "T7",
+          "description": "Validate feasibility and constraints across the plan (delivery windows, flight times, kitchen capacity, and dining deadline) and produce a feasibility report.",
+          "capability": "validator",
+          "start_time": 60,
+          "end_time": 70,
+          "status": "completed",
+          "dependencies": [
+            "T1",
+            "T2",
+            "T5",
+            "T3"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.140625,
+            "timestamp": 1756551112.4801762,
+            "agent_id": "scheduler_agent_1756551074280",
+            "task_id": "T2"
+          },
+          {
+            "memory_mb": 0.203125,
+            "timestamp": 1756551112.480181,
+            "agent_id": "logistics_agent_1756551074283",
+            "task_id": "T1"
+          },
+          {
+            "memory_mb": 0.203125,
+            "timestamp": 1756551112.480184,
+            "agent_id": "logistics_agent_1756551074285",
+            "task_id": "T5"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756551112.4801862,
+            "agent_id": "general_agent_1756551085318",
+            "task_id": "T3"
+          },
+          {
+            "memory_mb": 0.125,
+            "timestamp": 1756551112.480188,
+            "agent_id": "scheduler_agent_1756551074280",
+            "task_id": "T4"
+          },
+          {
+            "memory_mb": 0.125,
+            "timestamp": 1756551112.480191,
+            "agent_id": "validator_agent_1756551096176",
+            "task_id": "T7"
+          },
+          {
+            "memory_mb": 0.0625,
+            "timestamp": 1756551112.4801931,
+            "agent_id": "general_agent_1756551085318",
+            "task_id": "T6"
+          }
+        ],
+        "execution_times": [
+          6.0749900341033936,
+          10.432419061660767,
+          11.028446912765503,
+          10.851970672607422,
+          6.216338157653809,
+          8.372642040252686,
+          7.923391103744507,
+          52.73245692253113
+        ],
+        "token_usage": {
+          "input": 11220,
+          "output": 6834,
+          "total": 18054
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3628,
+            "output": 405,
+            "total": 4033
+          },
+          "execution": {
+            "input": 11220,
+            "output": 6834,
+            "total": 18054
+          },
+          "combined": {
+            "input": 14848,
+            "output": 7239,
+            "total": 22087
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 7,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 7,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 14848,
+        "output": 7239,
+        "total": 22087
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756551063.807473,
+          "query": "task decomposition strategies for Planning and scheduling with flight delays and recovery windows for meal and guest coordination",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 1,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.503770649,
+              "source": "Li2024.md",
+              "chunk_index": 14.0,
+              "text_preview": "e, establishing a standard specification language for multi-agent\nplanning. However, these methods can be limited by their complexity and heavy reliance on human\nexperts (Huang et al., 2024). Recently..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756551064.471704,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570985556,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.550584435,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.548043311,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756551065.4934661,
+          "query": "project management best practices for Coordinate all family travel Complete meal preparation on time Successfully adapt to flight delays",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 3,
+        "total_documents_retrieved": 4,
+        "unique_sources_accessed": 1,
+        "sources": [
+          "Li2024.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Planning and scheduling with flight delays and recovery windows for meal and guest coordination",
+            "matches_found": 1,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Coordinate all family travel Complete meal preparation on time Successfully adapt to flight delays",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 52.73245692253113,
+      "steps_taken": 4,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 14.530388116836548,
+      "planning_tokens": {
+        "input": 3628,
+        "output": 405,
+        "total": 4033
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3628,
+          "output": 405,
+          "total": 4033
+        },
+        "execution": {
+          "input": 11220,
+          "output": 6834,
+          "total": 18054
+        },
+        "combined": {
+          "input": 14848,
+          "output": 7239,
+          "total": 22087
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P9",
+      "seed": 42,
+      "total_execution_time": 52.776206731796265
+    },
+    {
+      "run_id": "rag_P10_42_1756551112",
+      "success": true,
+      "achieved_goals": [
+        {
+          "id": "minimize_total_cost",
+          "description": "Minimize total project cost"
+        },
+        {
+          "id": "meet_delivery_deadlines",
+          "description": "Meet all delivery deadlines"
+        },
+        {
+          "id": "optimize_inventory",
+          "description": "Optimize inventory levels"
+        },
+        {
+          "id": "minimize_risk",
+          "description": "Minimize supply chain risks"
+        }
+      ],
+      "satisfied_constraints": [
+        {
+          "id": "budget_limit",
+          "description": "Total project budget"
+        },
+        {
+          "id": "delivery_deadlines",
+          "description": "Component delivery deadlines"
+        },
+        {
+          "id": "supplier_capacity",
+          "description": "Supplier production capacity"
+        },
+        {
+          "id": "infrastructure_dependencies",
+          "description": "Infrastructure dependencies"
+        }
+      ],
+      "schedule": [
+        {
+          "task_id": "S1",
+          "description": "Build a data model of components, suppliers, facilities, capacities, lead_times, costs, and constraints; extract budget, deadlines, and risk factors from available resources.",
+          "capability": "data_analyst",
+          "start_time": 0,
+          "end_time": 10,
+          "status": "completed",
+          "dependencies": []
+        },
+        {
+          "task_id": "S2",
+          "description": "Decompose the project into work streams (procurement, fabrication/assembly, testing, logistics) and map task dependencies and critical paths; produce an initial task network.",
+          "capability": "scheduler",
+          "start_time": 10,
+          "end_time": 20,
+          "status": "completed",
+          "dependencies": [
+            "S1"
+          ]
+        },
+        {
+          "task_id": "S3",
+          "description": "Compute optimized procurement and production schedule to minimize total cost and meet delivery deadlines, considering supplier lead times, capacities, and facility constraints; produce proposed timeline and order allocations.",
+          "capability": "optimizer",
+          "start_time": 20,
+          "end_time": 30,
+          "status": "completed",
+          "dependencies": [
+            "S1",
+            "S2"
+          ]
+        },
+        {
+          "task_id": "S4",
+          "description": "Validate feasibility against budget, capacities, delivery deadlines, and infrastructure dependencies; produce constraints verification report and risk assessment.",
+          "capability": "validator",
+          "start_time": 30,
+          "end_time": 40,
+          "status": "completed",
+          "dependencies": [
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S5",
+          "description": "Define agent coordination patterns and assign roles to agents (logistics, scheduler, resource_manager, general) for parallel task execution, including parallelization opportunities and required data handoffs.",
+          "capability": "logistics",
+          "start_time": 40,
+          "end_time": 50,
+          "status": "completed",
+          "dependencies": [
+            "S2",
+            "S3"
+          ]
+        },
+        {
+          "task_id": "S6",
+          "description": "Produce an integrated execution plan detailing subtasks, dependencies, milestones, and monitoring KPIs; specify data artifacts to be shared between agents and a convergence point for results.",
+          "capability": "general",
+          "start_time": 50,
+          "end_time": 60,
+          "status": "completed",
+          "dependencies": [
+            "S4",
+            "S5"
+          ]
+        }
+      ],
+      "disruptions_handled": [],
+      "replanning_attempts": [],
+      "resource_usage": {
+        "memory_usage": [
+          {
+            "memory_mb": 0.015625,
+            "timestamp": 1756551197.0544121,
+            "agent_id": "data_analyst_agent_1756551128867",
+            "task_id": "S1"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756551197.054416,
+            "agent_id": "scheduler_agent_1756551144916",
+            "task_id": "S2"
+          },
+          {
+            "memory_mb": 0.0,
+            "timestamp": 1756551197.0544178,
+            "agent_id": "optimizer_agent_1756551157922",
+            "task_id": "S3"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756551197.054419,
+            "agent_id": "validator_agent_1756551171848",
+            "task_id": "S4"
+          },
+          {
+            "memory_mb": 0.046875,
+            "timestamp": 1756551197.054422,
+            "agent_id": "logistics_agent_1756551171850",
+            "task_id": "S5"
+          },
+          {
+            "memory_mb": 64.78125,
+            "timestamp": 1756551197.054423,
+            "agent_id": "general_agent_1756551182090",
+            "task_id": "S6"
+          }
+        ],
+        "execution_times": [
+          16.045161247253418,
+          13.001933097839355,
+          13.920776844024658,
+          7.43321681022644,
+          10.235414743423462,
+          14.959881782531738,
+          84.53194499015808
+        ],
+        "token_usage": {
+          "input": 11917,
+          "output": 6833,
+          "total": 18750
+        },
+        "token_breakdown": {
+          "planning": {
+            "input": 3612,
+            "output": 645,
+            "total": 4257
+          },
+          "execution": {
+            "input": 11917,
+            "output": 6833,
+            "total": 18750
+          },
+          "combined": {
+            "input": 15529,
+            "output": 7478,
+            "total": 23007
+          }
+        }
+      },
+      "final_state": {
+        "completed_subtasks": 6,
+        "failed_subtasks": 0,
+        "cancelled_subtasks": 0,
+        "total_subtasks": 6,
+        "success_rate": 1.0
+      },
+      "token_usage": {
+        "input": 15529,
+        "output": 7478,
+        "total": 23007
+      },
+      "knowledge_retrieved": [
+        {
+          "timestamp": 1756551116.147219,
+          "query": "task decomposition strategies for Large-scale industrial project planning with procurement, infrastructure dependencies, and cost-risk tradeoffs",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756551117.213898,
+          "query": "agent coordination patterns for complex problems",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 3,
+          "error": null,
+          "documents": [
+            {
+              "score": 0.570985556,
+              "source": "Li2024.md",
+              "chunk_index": 24.0,
+              "text_preview": "ts of tin and\ncopper to that agent, as shown at the lower left of Figure 1.\n\nDesign Principles We further identify three critical principles that guide the design of AOP for\neffective and efficient ag..."
+            },
+            {
+              "score": 0.550584435,
+              "source": "Li2024.md",
+              "chunk_index": 28.0,
+              "text_preview": "ppendix B, especially considering unexpected changes in agent availability.\n\nWhile these principles may appear general in nature, we propose an explicit specification and sys-\ntematic design that foll..."
+            },
+            {
+              "score": 0.548043311,
+              "source": "Li2024.md",
+              "chunk_index": 8.0,
+              "text_preview": "collectively provide comprehensive an-\nswers to the original user queries.\n\nHowever, since the meta-agent cannot effectively associate sub-tasks with agents based on the pro-\nvided agents descriptions..."
+            }
+          ],
+          "source": "orchestrator_planning"
+        },
+        {
+          "timestamp": 1756551119.629026,
+          "query": "project management best practices for Minimize total project cost Meet all delivery deadlines Optimize inventory levels Minimize supply chain risks",
+          "top_k_requested": 3,
+          "score_threshold": 0.5,
+          "matches_found": 0,
+          "error": null,
+          "documents": [],
+          "source": "orchestrator_planning"
+        }
+      ],
+      "knowledge_retrieval_summary": {
+        "total_queries": 3,
+        "total_documents_retrieved": 3,
+        "unique_sources_accessed": 1,
+        "sources": [
+          "Li2024.md"
+        ],
+        "queries_made": [
+          {
+            "query": "task decomposition strategies for Large-scale industrial project planning with procurement, infrastructure dependencies, and cost-risk tradeoffs",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "agent coordination patterns for complex problems",
+            "matches_found": 3,
+            "source_context": "orchestrator_planning"
+          },
+          {
+            "query": "project management best practices for Minimize total project cost Meet all delivery deadlines Optimize inventory levels Minimize supply chain risks",
+            "matches_found": 0,
+            "source_context": "orchestrator_planning"
+          }
+        ]
+      },
+      "execution_time": 84.53194499015808,
+      "steps_taken": 5,
+      "retrieval_enabled": true,
+      "planning_latency_seconds": 16.34242606163025,
+      "planning_tokens": {
+        "input": 3612,
+        "output": 645,
+        "total": 4257
+      },
+      "token_breakdown": {
+        "planning": {
+          "input": 3612,
+          "output": 645,
+          "total": 4257
+        },
+        "execution": {
+          "input": 11917,
+          "output": 6833,
+          "total": 18750
+        },
+        "combined": {
+          "input": 15529,
+          "output": 7478,
+          "total": 23007
+        }
+      },
+      "adaptation_metrics": {
+        "total_disruptions": 0,
+        "triggered_disruptions": 0,
+        "replanning_attempts": 0,
+        "adaptation_events": []
+      },
+      "experiment_type": "rag",
+      "task_id": "P10",
+      "seed": 42,
+      "total_execution_time": 84.57492303848267
+    }
+  ],
+  "realm_bench_integration": true,
+  "evaluation_framework": "REALM-Bench v2.0 (fixed)"
+}

@@ -1,0 +1,299 @@
+{
+  "total_experiments": 20,
+  "successful_experiments": 20,
+  "failed_experiments": 0,
+  "metrics": [
+    {
+      "run_id": "baseline_P1_42_1756549989",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.16666666666666663,
+        "plan_redundancy_score": 0.4104975442091624,
+        "agent_task_fit_score": 0.3174746682246526,
+        "critical_path_length": 5,
+        "total_tasks": 6,
+        "planning_efficiency": 1.630983829498291,
+        "token_efficiency": 3088.3333333333335,
+        "execution_balance": 19.01908492714568
+      }
+    },
+    {
+      "run_id": "baseline_P2_42_1756550054",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.0,
+        "plan_redundancy_score": 0.5255093783140182,
+        "agent_task_fit_score": 0.46195083260536196,
+        "critical_path_length": 5,
+        "total_tasks": 5,
+        "planning_efficiency": 1.5275053977966309,
+        "token_efficiency": 2278.6,
+        "execution_balance": 13.750416495796182
+      }
+    },
+    {
+      "run_id": "baseline_P3_42_1756550097",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.16666666666666663,
+        "plan_redundancy_score": 0.5787465433279674,
+        "agent_task_fit_score": 0.3824288894732793,
+        "critical_path_length": 5,
+        "total_tasks": 6,
+        "planning_efficiency": 1.3009881973266602,
+        "token_efficiency": 2594.0,
+        "execution_balance": 16.585437098626823
+      }
+    },
+    {
+      "run_id": "baseline_P4_42_1756550153",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.19999999999999996,
+        "plan_redundancy_score": 0.4899580478668213,
+        "agent_task_fit_score": 0.31478588581085204,
+        "critical_path_length": 4,
+        "total_tasks": 5,
+        "planning_efficiency": 1.7297379970550537,
+        "token_efficiency": 2750.8,
+        "execution_balance": 15.566239109677937
+      }
+    },
+    {
+      "run_id": "baseline_P5_42_1756550202",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.4,
+        "plan_redundancy_score": 0.47887069284915923,
+        "agent_task_fit_score": 0.4389640808105469,
+        "critical_path_length": 3,
+        "total_tasks": 5,
+        "planning_efficiency": 2.0045191764831545,
+        "token_efficiency": 3963.6,
+        "execution_balance": 15.282396493850463
+      }
+    },
+    {
+      "run_id": "baseline_P6_42_1756550254",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.19999999999999996,
+        "plan_redundancy_score": 0.3769136995077133,
+        "agent_task_fit_score": 0.2528548136353493,
+        "critical_path_length": 4,
+        "total_tasks": 5,
+        "planning_efficiency": 1.8301891326904296,
+        "token_efficiency": 3446.0,
+        "execution_balance": 15.63769480908603
+      }
+    },
+    {
+      "run_id": "baseline_P7_42_1756550305",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.16666666666666663,
+        "plan_redundancy_score": 0.37540653347969055,
+        "agent_task_fit_score": 0.45756497979164124,
+        "critical_path_length": 5,
+        "total_tasks": 6,
+        "planning_efficiency": 1.2727506160736084,
+        "token_efficiency": 2364.8333333333335,
+        "execution_balance": 12.750497924546451
+      }
+    },
+    {
+      "run_id": "baseline_P8_42_1756550348",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.16666666666666663,
+        "plan_redundancy_score": 0.42126852671305337,
+        "agent_task_fit_score": 0.38183820247650146,
+        "critical_path_length": 5,
+        "total_tasks": 6,
+        "planning_efficiency": 1.4563268025716145,
+        "token_efficiency": 3041.6666666666665,
+        "execution_balance": 16.002392049544675
+      }
+    },
+    {
+      "run_id": "baseline_P9_42_1756550402",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.19999999999999996,
+        "plan_redundancy_score": 0.5747249364852905,
+        "agent_task_fit_score": 0.37627056837081907,
+        "critical_path_length": 4,
+        "total_tasks": 5,
+        "planning_efficiency": 1.5931570053100585,
+        "token_efficiency": 2819.0,
+        "execution_balance": 14.207602901652532
+      }
+    },
+    {
+      "run_id": "baseline_P10_42_1756550448",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.2857142857142857,
+        "plan_redundancy_score": 0.4474844549383436,
+        "agent_task_fit_score": 0.38744151166507174,
+        "critical_path_length": 5,
+        "total_tasks": 7,
+        "planning_efficiency": 1.3123785768236433,
+        "token_efficiency": 3771.1428571428573,
+        "execution_balance": 19.404396653341923
+      }
+    },
+    {
+      "run_id": "rag_P1_42_1756550517",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.0,
+        "plan_redundancy_score": 0.46042713324228923,
+        "agent_task_fit_score": 0.3257315581043561,
+        "critical_path_length": 6,
+        "total_tasks": 6,
+        "planning_efficiency": 3.3192323446273804,
+        "token_efficiency": 3810.5,
+        "execution_balance": 29.47417985096595
+      }
+    },
+    {
+      "run_id": "rag_P2_42_1756550613",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.0,
+        "plan_redundancy_score": 0.43390978276729586,
+        "agent_task_fit_score": 0.42016316056251524,
+        "critical_path_length": 5,
+        "total_tasks": 5,
+        "planning_efficiency": 2.425937223434448,
+        "token_efficiency": 3285.0,
+        "execution_balance": 20.282024341772296
+      }
+    },
+    {
+      "run_id": "rag_P3_42_1756550677",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.0,
+        "plan_redundancy_score": 0.5267328063646952,
+        "agent_task_fit_score": 0.36869943638642627,
+        "critical_path_length": 6,
+        "total_tasks": 6,
+        "planning_efficiency": 2.550703843434652,
+        "token_efficiency": 3515.5,
+        "execution_balance": 23.95049892351205
+      }
+    },
+    {
+      "run_id": "rag_P4_42_1756550755",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.16666666666666663,
+        "plan_redundancy_score": 0.4664716223875682,
+        "agent_task_fit_score": 0.3734888384739558,
+        "critical_path_length": 5,
+        "total_tasks": 6,
+        "planning_efficiency": 2.8721154928207397,
+        "token_efficiency": 3120.3333333333335,
+        "execution_balance": 19.759589514563245
+      }
+    },
+    {
+      "run_id": "rag_P5_42_1756550818",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.33333333333333337,
+        "plan_redundancy_score": 0.317716957628727,
+        "agent_task_fit_score": 0.3621091643969218,
+        "critical_path_length": 4,
+        "total_tasks": 6,
+        "planning_efficiency": 2.1894436279932656,
+        "token_efficiency": 3363.5,
+        "execution_balance": 14.879346014298491
+      }
+    },
+    {
+      "run_id": "rag_P6_42_1756550869",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.19999999999999996,
+        "plan_redundancy_score": 0.42617071866989137,
+        "agent_task_fit_score": 0.4189214825630188,
+        "critical_path_length": 4,
+        "total_tasks": 5,
+        "planning_efficiency": 2.735482406616211,
+        "token_efficiency": 3144.4,
+        "execution_balance": 14.91853512158135
+      }
+    },
+    {
+      "run_id": "rag_P7_42_1756550917",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.0,
+        "plan_redundancy_score": 0.3941729158163071,
+        "agent_task_fit_score": 0.4520475149154663,
+        "critical_path_length": 5,
+        "total_tasks": 5,
+        "planning_efficiency": 2.776227569580078,
+        "token_efficiency": 3484.4,
+        "execution_balance": 19.650366237786344
+      }
+    },
+    {
+      "run_id": "rag_P8_42_1756550979",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.0,
+        "plan_redundancy_score": 0.3213289519151052,
+        "agent_task_fit_score": 0.25135153035322827,
+        "critical_path_length": 6,
+        "total_tasks": 6,
+        "planning_efficiency": 2.330886801083883,
+        "token_efficiency": 3602.1666666666665,
+        "execution_balance": 24.424445521033253
+      }
+    },
+    {
+      "run_id": "rag_P9_42_1756551059",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.4285714285714286,
+        "plan_redundancy_score": 0.37830319716816857,
+        "agent_task_fit_score": 0.4163257224219186,
+        "critical_path_length": 4,
+        "total_tasks": 7,
+        "planning_efficiency": 2.0757697309766496,
+        "token_efficiency": 3155.285714285714,
+        "execution_balance": 14.677028744220781
+      }
+    },
+    {
+      "run_id": "rag_P10_42_1756551112",
+      "success": true,
+      "metrics": {
+        "plan_parallelism_score": 0.16666666666666663,
+        "plan_redundancy_score": 0.3809373706579208,
+        "agent_task_fit_score": 0.4387504955132802,
+        "critical_path_length": 5,
+        "total_tasks": 6,
+        "planning_efficiency": 2.723737676938375,
+        "token_efficiency": 3834.5,
+        "execution_balance": 25.31723863198048
+      }
+    }
+  ],
+  "correlations": {
+    "parallelism_vs_execution_time": -0.4357671734997432,
+    "redundancy_vs_execution_time": -0.14432067872092386,
+    "redundancy_vs_tokens": -0.3778908607365564
+  },
+  "insights": [
+    "Average Plan Parallelism Score: 0.162",
+    "Average Plan Redundancy Score: 0.439",
+    "Average Agent-Task Fit Score: 0.380",
+    "\u26a0\ufe0f Low parallelism: Plans are mostly sequential, limiting efficiency",
+    "\u26a0\ufe0f Poor agent-task matching: Tasks may not align well with capabilities"
+  ]
+}
