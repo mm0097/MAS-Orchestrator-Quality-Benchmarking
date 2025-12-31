@@ -2,6 +2,10 @@
 
 Research codebase for the term paper "Knowledge Augmentation for Multi-Agent Orchestration"
 
+```
+Currently only works with OpenAI models via API
+```
+
 ## Overview
 
 This project implements a sophisticated multi-agent orchestration framework built on LangGraph to evaluate the impact of knowledge augmentation (Retrieval-Augmented Generation) on agent coordination and planning performance. The system decomposes complex planning and optimization tasks into subtasks, distributes them among specialized agents, and measures performance across various configurations.
